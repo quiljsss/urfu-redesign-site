@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Поступление в УрФУ</title>
+<meta name="description" content="Всё о поступлении в УрФУ на одной странице: шаги, календарь приёма, документы и контакты приёмной комиссии для каждого уровня.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+/* Переключатель уровня прилипает под шапкой, чтобы им можно было пользоваться на любом месте страницы */
+.lv { position: sticky; top: var(--stick); z-index: 30; background: #fff; transition: top .4s var(--ease-out); border-bottom: 1px solid var(--line); }
+.lv .levels { margin: 0; padding: 12px 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.lv .levels::-webkit-scrollbar { display: none; }
+.lv .chip { flex: none; }
+
+.top { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; align-items: end; }
+
+
+
+.what { margin-top: 20px; }
+.cal__tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+.cal__tabs .chip { font-weight: 600; }
+.cal small { display: block; margin-top: 4px; font-weight: 400; color: var(--ink-2); font-size: 14px; }
+.cal__foot { margin-top: 24px; display: grid; gap: 12px; }
+
+.help { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; align-items: stretch; }
+.help ul { display: grid; gap: 4px; margin-top: 20px; }
+.help ul a { font-weight: 500; }
+.help__tels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+.help__tel { display: block; font-size: clamp(22px, 2.2vw, 30px); font-weight: 600; letter-spacing: -0.02em; text-decoration: none; }
+.help__tel:hover { color: var(--blue); }
+.help__tels p { margin-top: 4px; font-size: 15px; }
+.help__btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.help__img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; border-radius: var(--radius); }
+
+@media (max-width: 1100px) {
+  .top, .help { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .help__img { min-height: 0; aspect-ratio: 3 / 2; }
+}
+@media (max-width: 640px) {
+  .open { padding: 20px; }
+  .help__tels { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .open__t { font-size: 20px; }
+  .cal .tbl thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .cal .tbl, .cal .tbl tbody, .cal .tbl tr, .cal .tbl td { display: block; }
+  .cal .tbl tr { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .cal .tbl td { padding: 4px 0; border: 0; }
+  .cal .tbl td::before { content: attr(data-l); display: block; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+  .cal .tbl td:first-child { font-size: 18px; padding-bottom: 8px; }
+  .cal .tbl td:first-child::before { display: none; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Поступление в УрФУ">
+<meta property="og:description" content="Всё о поступлении в УрФУ на одной странице: шаги, календарь приёма, документы и контакты приёмной комиссии для каждого уровня.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Поступление">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Поступление</li></ol></nav>
+      <div class="top">
+        <div>
+          <h1 class="t-h1" id="h1">Поступление в УрФУ</h1>
+          <p class="lead">Выберите уровень: шаги, сроки, документы и контакты приёмной комиссии собраны на одной странице.</p>
+        </div>
+        <a class="panel-ev" id="dod" href="https://urfu.ru/ru/applicant/">
+          <span class="panel-ev__d"><i class="dot" aria-hidden="true"></i>23–30 января</span>
+          <span class="panel-ev__t">Дни открытых дверей: институты расскажут о поступлении</span>
+          <span class="panel-ev__g">Выбрать день и записаться</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="lv-scope"><!-- вкладки прилипают, только пока на экране шаги, сроки и документы уровня -->
+  <div class="lv">
+    <div class="wrap">
+      <div class="levels" role="tablist" aria-label="Уровень образования" id="levels">
+        <button class="chip" role="tab" id="t-bak" data-k="bak" aria-controls="panel">Бакалавриат и специалитет</button>
+        <button class="chip" role="tab" id="t-mag" data-k="mag" aria-controls="panel">Магистратура</button>
+        <button class="chip" role="tab" id="t-asp" data-k="asp" aria-controls="panel">Аспирантура</button>
+        <button class="chip" role="tab" id="t-spo" data-k="spo" aria-controls="panel">Колледж</button>
+        <button class="chip" role="tab" id="t-intl" data-k="intl" aria-controls="panel">Иностранным гражданам</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel" role="tabpanel" aria-live="polite">
+    <section class="sec" aria-labelledby="steps-h">
+      <div class="wrap">
+        <div class="sec__head"><div><h2 class="t-h2" id="steps-h">Как поступить</h2><p data-lead></p></div></div>
+        <ol class="route" data-steps style="margin-top:48px"></ol>
+      </div>
+    </section>
+
+    <section class="sec sec--grey" id="kalendar" aria-labelledby="cal-h" data-cal-sec>
+      <div class="wrap cal">
+        <div class="sec__head"><div><h2 class="t-h2" id="cal-h">Календарь приёма</h2><p data-cal-lead></p></div></div>
+        <div class="cal__tabs" role="group" aria-label="Основа обучения" data-cal-tabs></div>
+        <div data-cal></div>
+        <div class="cal__foot" data-cal-foot></div>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="doc-h">
+      <div class="wrap">
+        <div class="sec__head"><div><h2 class="t-h2" id="doc-h">Документы и сервисы</h2></div></div>
+        <ul class="linklist" data-links></ul>
+      </div>
+    </section>
+  </div>
+  </div>
+
+  <section class="sec sec--grey" aria-labelledby="help-h">
+    <div class="wrap help">
+      <img decoding="async" class="help__img" src="img/photo/campus-sign.jpg" alt="Корпус УрФУ с надписью «Уральский федеральный университет»" width="1280" height="853" loading="lazy">
+      <div>
+        <h2 class="t-h2" id="help-h">Остались вопросы?</h2>
+        <p class="lead">Сначала проверьте вопросы и ответы приёмной комиссии. Если ответа там нет, спросите помощника, напишите или позвоните.</p>
+        <ul>
+          <li><a href="https://urfu.ru/ru/feedback/priem/obshchie-voprosy-po-priemu/">Вопросы и ответы приёмной комиссии</a></li>
+          <li><a href="pomoshch.html#instituty">Приёмные комиссии институтов</a></li>
+        </ul>
+        <div class="help__tels">
+          <div><a class="help__tel" href="tel:88001005044">8 800 100-50-44</a><p class="muted">Контакт-центр, звонок по России бесплатный</p></div>
+          <div><a class="help__tel" href="tel:+73433754444">+7 (343) 375-44-44</a><p class="muted">Телефон в Екатеринбурге</p></div>
+        </div>
+        <div class="help__btns">
+          <a class="btn btn--blue" href="pomoshch.html#vopros">Задать вопрос</a>
+          <a class="btn btn--ghost" href="pomoshnik.html">Спросить ИИ-помощника</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="js/site.js"></script>
+<script>
+/* Все даты и названия разделов взяты с действующего сайта urfu.ru (календарь приёма 2026 года). */
+const L = (t, h) => ({ t, h });
+const LEVELS = {
+  bak: {
+    lead: 'Четыре шага от выбора программы до зачисления. Условия зависят от формы: бюджет или платное обучение.',
+    steps: [
+      ['Выбрать программу', '378 программ: поиск по названию и коду, фильтры по уровню, институту и форме.', 'Открыть каталог', 'katalog.html'],
+      ['Проверить предметы и баллы', 'Отметьте свои предметы ЕГЭ в каталоге. На странице программы впишите баллы и увидите минимумы, места и цену.', 'Подобрать по предметам', 'katalog.html#ege'],
+      ['Подать документы', 'Лично, онлайн или через Госуслуги. Есть пошаговая инструкция.', 'Как подать', 'https://urfu.ru/ru/applicant/docs-abiturient/gosuslugi-guide/'],
+      ['Дать согласие на зачисление', 'Без согласия в установленный срок в приказ о зачислении не попасть. Сроки в календаре ниже.', 'Смотреть сроки', '#kalendar'],
+    ],
+    links: [L('Правила приёма', 'https://urfu.ru/fileadmin/user_upload/urfu.ru/documents/applicant/2026/Pravila_priema_bakalavriat.pdf'), L('План приёма', 'https://urfu.ru/fileadmin/user_upload/urfu.ru/documents/applicant/2026/PLAN_priema_bakalavriat_20_01_2026.pdf'), L('Вступительные испытания', 'https://urfu.ru/ru/applicant/docs-abiturient/exams/'), L('Индивидуальные достижения', 'https://urfu.ru/ru/applicant/docs-abiturient/olimp/'), L('Стоимость обучения', 'https://urfu.ru/ru/applicant/docs-abiturient/stoimost-obuchenija/'), L('Целевое обучение', 'https://urfu.ru/ru/applicant/docs-abiturient/sponsored/'), L('Поступление по отдельной квоте', 'https://urfu.ru/ru/applicant/docs-abiturient/postuplenie-po-otdelnoi-kvote/'), L('Поступление по особой квоте', 'https://urfu.ru/ru/applicant/docs-abiturient/postuplenie-po-osoboi-kvote/'), L('Квота Россотрудничества', 'https://urfu.ru/ru/applicant/docs-abiturient/postuplenie-po-kvote-rossotrudnichestva/'), L('Стипендии талантливым', 'https://urfu.ru/ru/students/study/scholarships/talented/'), L('Кредит на образование с господдержкой', 'https://urfu.ru/fileadmin/user_upload/urfu.ru/documents/applicant/2024/obr_kredit_sber.pdf'), L('Поступающим с ограниченными возможностями здоровья', 'https://urfu.ru/ru/applicant/docs-abiturient/persons-with-disabilities/'), L('Как поступить через Госуслуги', 'https://urfu.ru/ru/applicant/docs-abiturient/gosuslugi-guide/'), L('Трансляции для поступающих', 'https://urfu.ru/ru/applicant/docs-abiturient/transljacii-dlja-postupajushchikh/'), L('Списки поступающих', 'https://urfu.ru/ru/alpha/full/'), L('Списки зачисленных', 'https://urfu.ru/ru/applicant/enrolled-lists/'), L('Контакты приёмной комиссии', 'https://urfu.ru/ru/applicant/contacts/')],
+    cal: 'bak',
+    /* «сейчас» по календарю приёма: до 20 июня выбирают программу, 20 июня – 25 июля подают документы, до 11 августа дают согласие */
+    now: (t) => { const md = (t.getMonth() + 1) * 100 + t.getDate(); return md >= 620 && md <= 725 ? 2 : md > 725 && md <= 811 ? 3 : 0; },
+  },
+  mag: {
+    lead: 'Магистратура и специализированное высшее образование. Правила, план приёма и экзамены одни для всех направлений.',
+    steps: [
+      ['Выбрать направление', 'Каталог магистерских программ с фильтром по институту и форме обучения.', 'Открыть каталог', 'katalog.html?level=mag'],
+      ['Узнать про испытания', 'Для каждого направления указаны вступительные испытания и их расписание.', 'Испытания', 'http://magister.urfu.ru/index.php?id=32876'],
+      ['Подать документы', 'Через Госуслуги или лично. Если диплом не подтверждается на Госуслугах, есть отдельная инструкция.', 'Как подать', 'https://urfu.ru/ru/applicant/docs-abiturient/gosuslugi-guide/'],
+      ['Дать согласие на зачисление', 'Срок указан в календаре ниже. Приказы о зачислении публикуют в тот же день.', 'Смотреть сроки', '#kalendar'],
+    ],
+    links: [L('Правила приёма', 'https://magister.urfu.ru/fileadmin/user_upload/site_15406/2026/Pravila_priema_magistratura.pdf'), L('План приёма', 'https://magister.urfu.ru/fileadmin/user_upload/site_15406/2026/PLAN_priema_magistratura_20_01_2026.pdf'), L('Расписание вступительных испытаний', 'http://magister.urfu.ru/index.php?id=32876'), L('Нормативные документы', 'https://magister.urfu.ru/ru/documents/'), L('Направления подготовки', 'https://magister.urfu.ru/programs/'), L('Стоимость обучения', 'https://urfu.ru/ru/applicant/docs-abiturient/stoimost-obuchenija/'), L('Индивидуальные достижения', 'http://magister.urfu.ru/index.php?id=35391'), L('Целевое обучение', 'https://magister.urfu.ru/ru/documents/priem-na-celevoe-obuchenie/'), L('Стипендии талантливым', 'https://urfu.ru/ru/students/study/scholarships/talented/'), L('Кредит на образование с господдержкой', 'https://urfu.ru/fileadmin/user_upload/urfu.ru/documents/applicant/2024/obr_kredit_sber.pdf'), L('Как поступить через Госуслуги', 'https://urfu.ru/ru/applicant/docs-abiturient/gosuslugi-guide/'), L('Диплом не подтверждается на Госуслугах', 'http://magister.urfu.ru/ru/documents/diplom-ne-podtverzhdaetsja-na-portale-gosuslugi/'), L('Трансляции для поступающих', 'http://magister.urfu.ru/ru/transljacii-dlja-postupajushchikh/'), L('Списки поступающих', 'https://urfu.ru/ru/alpha-second/'), L('Списки зачисленных', 'https://urfu.ru/ru/alpha-second/spiski-zachislennykh/'), L('Контакты приёмной комиссии', 'https://urfu.ru/ru/applicant/contacts/')],
+    cal: 'mag',
+  },
+  asp: {
+    lead: 'Подготовка научных и научно-педагогических кадров. Здесь собраны документы и списки; сроки приёма публикует отдел подготовки научно-педагогических кадров.',
+    steps: [
+      ['Найти направление', 'Список направлений и профилей подготовки с научными отраслями.', 'Направления', 'http://aspirant.urfu.ru/aspirantura/dlja-postupajushchikh/napravlenijaprofili-podgotovki/'],
+      ['Изучить нормативные документы', 'Правила приёма и перечень вступительных испытаний.', 'Документы', 'https://aspirant.urfu.ru/ru/aspirantura/dlja-postupajushchikh/'],
+      ['Подать документы', 'Перечень документов для поступления и порядок подачи.', 'Что подавать', 'https://aspirant.urfu.ru/ru/aspirantura/dlja-postupajushchikh/'],
+      ['Следить за списками', 'Списки поступающих и приказы о зачислении публикуются на странице.', 'Списки', 'https://aspirant.urfu.ru/ru/aspirantura/'],
+    ],
+    links: [L('Направления подготовки', 'http://aspirant.urfu.ru/aspirantura/dlja-postupajushchikh/napravlenijaprofili-podgotovki/'), L('Нормативные документы', 'https://aspirant.urfu.ru/ru/aspirantura/dlja-postupajushchikh/'), L('Документы для поступления', 'https://aspirant.urfu.ru/ru/aspirantura/dlja-postupajushchikh/'), L('Списки поступающих', 'https://aspirant.urfu.ru/ru/aspirantura/'), L('Отдел подготовки научно-педагогических кадров', 'https://aspirant.urfu.ru/ru/aspirantura/'), L('Приём иностранных граждан', 'https://postgraduate.urfu.ru/')],
+    cal: null,
+  },
+  spo: {
+    lead: 'Среднее профессиональное образование: колледж и подготовка рядом с вузом. Условия и контакты приёмной комиссии колледжа.',
+    steps: [
+      ['Выбрать специальность', 'Перечень специальностей и форм обучения.', 'Специальности', 'https://urfu.ru/ru/applicant/spo-urfu/'],
+      ['Подготовить документы', 'Что нужно для подачи и в какие сроки.', 'Что подавать', 'https://urfu.ru/ru/applicant/spo-urfu/'],
+      ['Подать документы', 'Приёмная комиссия колледжа принимает документы в своём порядке.', 'Как подать', 'https://urfu.ru/ru/applicant/spo-urfu/'],
+      ['Узнать про военный учебный центр', 'Если интересует обучение при военном учебном центре, условия описаны отдельно.', 'Подробнее', 'https://vuc.urfu.ru/ru/abiturientam-i-studentam/uslovija-priema/podgotovka-kadrovykh-oficerov/'],
+    ],
+    links: [L('Среднее профессиональное образование', 'https://urfu.ru/ru/applicant/spo-urfu/'), L('Военный учебный центр', 'https://vuc.urfu.ru/ru/abiturientam-i-studentam/uslovija-priema/podgotovka-kadrovykh-oficerov/'), L('Навигатор выпускника СПО', 'https://profilespo.my1.urfu.ru/'), L('Контакты приёмной комиссии', 'https://urfu.ru/ru/applicant/contacts/')],
+    cal: null,
+  },
+  intl: {
+    lead: 'Для граждан других стран: порядок подачи, вступительные испытания и жизнь в Екатеринбурге. Есть отдельные условия для абитуриентов из стран ближнего зарубежья.',
+    steps: [
+      ['Подать заявку на портале', 'Заявки принимает портал Study in Russia.', 'Study in Russia', 'https://urfu.ru/ru/international/int-admission/portal-dlja-inostrannykh-abiturientov-study-in-russia/'],
+      ['Собрать документы', 'Перечень документов и требования к их оформлению.', 'Документы', 'https://urfu.ru/ru/applicant/sng/priem-dokumentov/kak-podat-dokumenty/'],
+      ['Пройти испытания', 'Для абитуриентов из стран СНГ есть испытания в своей стране.', 'Испытания', 'https://urfu.ru/ru/applicant/sng/vstupitelnye-ispytanija/'],
+      ['Спланировать прибытие', 'Как прилететь и где получить поддержку по приезде.', 'О прибытии', 'https://urfu.ru/ru/international/o-pribytii-inostrannykh-studentov-iz-za-rubezha/'],
+    ],
+    links: [L('Как подать документы', 'https://urfu.ru/ru/applicant/sng/priem-dokumentov/kak-podat-dokumenty/'), L('Приём документов и сроки', 'https://urfu.ru/ru/international/int-admission/'), L('Вступительные испытания', 'https://urfu.ru/ru/applicant/sng/vstupitelnye-ispytanija/'), L('Международная олимпиада «Глобальные университеты»', 'https://urfu.ru/ru/applicant/inostrannym-abiturientam/od/'), L('О прибытии из-за рубежа', 'https://urfu.ru/ru/international/o-pribytii-inostrannykh-studentov-iz-za-rubezha/'), L('Портал Study in Russia', 'https://urfu.ru/ru/international/int-admission/portal-dlja-inostrannykh-abiturientov-study-in-russia/'), L('Жизнь в Екатеринбурге', 'https://urfu.ru/ru/applicant/inostrannym-abiturientam/od/zhizn-v-ekaterinburge/'), L('Списки зачисленных', 'https://urfu.ru/ru/applicant/enrolled-lists/'), L('Контакты приёмной комиссии', 'https://urfu.ru/ru/applicant/sng/priem-dokumentov/kontakty-priemnoi-komissii/')],
+    cal: null,
+  },
+};
+
+/* Календарь приёма 2026 года, как на urfu.ru */
+const CAL = {
+  bak: {
+    lead: 'Календарь действующей кампании 2026 года. Даты набора 2027 приёмная комиссия опубликует перед началом приёма; формат останется тем же.',
+    tabs: {
+      budget: {
+        name: 'Бюджетные места',
+        head: ['Этап', 'Приём документов', 'Вступительные испытания', 'Согласие на зачисление до', 'Приказ о зачислении'],
+        rows: [
+          ['Приоритетный', '20 июня – 25 июля', 'По результатам ЕГЭ', '1 августа, 14:00', '3 августа'],
+          ['Основной', '20 июня – 15 июля', '1–23 июля, компьютерное тестирование УрФУ', '5 августа, 14:00', '7 августа'],
+          ['Дополнительный', '20 июня – 15 июля', '1–23 июля, творческие и профессиональные экзамены', '9 августа, 14:00', '11 августа'],
+        ],
+        foot: ['Приоритетный этап также идёт по особой, отдельной и целевой квотам и для поступающих без вступительных испытаний.',
+          'Вступительные испытания УрФУ сдают иностранные граждане, инвалиды, выпускники СПО и поступающие по отдельной квоте. Творческие экзамены: журналистика, медиакоммуникации, телевидение, физическая культура, спорт, история искусств, дизайн, архитектура, художественная обработка материалов.'],
+      },
+      paid: {
+        name: 'Платные места',
+        head: ['Основание', 'Приём документов', 'Вступительные испытания', 'Заключить договор до', 'Приказ о зачислении'],
+        rows: [
+          ['По результатам ЕГЭ', '20 июня – 20 августа', '1–23 июля и 8–19 августа', '21 августа, 17:00', '25 августа'],
+          ['По испытаниям УрФУ и творческим экзаменам', '20 июня – 15 августа', '1–23 июля и 8–19 августа', '21 августа, 17:00', '25 августа'],
+        ],
+        foot: ['Дополнительный приём только для поступающих по документу иностранного государства об образовании: с 1 сентября по 22 октября, приказ 30 октября.'],
+      },
+    },
+  },
+  mag: {
+    lead: 'Дополнительный приём 2026 года, опубликованный на сайте магистратуры. Основной приём проходит по тому же формату, даты каждого года публикуются заранее.',
+    tabs: {
+      budget: {
+        name: 'Бюджетные места',
+        head: ['Форма', 'Приём документов', 'Вступительные испытания', 'Согласие на зачисление до', 'Приказ о зачислении'],
+        rows: [['Очная, очно-заочная', '31 августа – 9 сентября', '1–11 сентября', '15 сентября, 14:00', '16 сентября']],
+        foot: ['Время местное, документы принимаются до 17:00.'],
+      },
+      paid: {
+        name: 'Платные места',
+        head: ['Форма', 'Приём документов', 'Вступительные испытания', 'Заключить договор до', 'Приказ о зачислении'],
+        rows: [['Очная, очно-заочная, заочная', '10 сентября – 23 октября', '11 сентября – 24 октября', '28 октября, 17:00', '30 октября']],
+        foot: ['Только для поступающих по документу иностранного государства об образовании. Время местное.'],
+      },
+    },
+  },
+};
+
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+let calKey = 'budget';
+
+function renderCal(level) {
+  const sec = $('[data-cal-sec]'), c = CAL[LEVELS[level].cal];
+  sec.hidden = !c;
+  if (!c) return;
+  $('[data-cal-lead]').textContent = c.lead;
+  const tabs = $('[data-cal-tabs]');
+  tabs.innerHTML = Object.entries(c.tabs).map(([k, v]) => `<button class="chip" type="button" aria-pressed="${k === calKey}" data-ck="${k}">${v.name}</button>`).join('');
+  tabs.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { calKey = b.dataset.ck; renderCal(level); }));
+  const t = c.tabs[calKey];
+  $('[data-cal]').innerHTML = `<table class="tbl"><thead><tr>${t.head.map((h) => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${
+    t.rows.map((r) => `<tr>${r.map((v, i) => `<td data-l="${t.head[i]}"${i === 1 ? ' class="num"' : ''}>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+  $('[data-cal-foot]').innerHTML = t.foot.map((x) => `<p class="note">${esc(x)}</p>`).join('');
+}
+
+function show(k, push) {
+  const d = LEVELS[k];
+  document.querySelectorAll('#levels [role="tab"]').forEach((b) => {
+    const on = b.dataset.k === k;
+    b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1;
+  });
+  $('#panel').setAttribute('aria-labelledby', 't-' + k);
+  $('[data-lead]').textContent = d.lead;
+  const now = d.now ? d.now(TODAY) : -1;
+  $('[data-steps]').innerHTML = d.steps.map(([t, p, a, h], i) =>
+    `<li${i === now ? ' class="is-here" aria-current="step"' : ''}><h3>${t}</h3><p>${p}</p><a href="${h}">${a}</a></li>`).join('');
+  $('[data-links]').innerHTML = d.links.map((l) => `<li><a href="${l.h}">${l.t}</a></li>`).join('');
+  renderCal(k);
+  if (push) history.replaceState(null, '', '#' + k);
+}
+
+const tabs = [...document.querySelectorAll('#levels [role="tab"]')];
+tabs.forEach((b, i) => {
+  b.addEventListener('click', () => show(b.dataset.k, true));
+  b.addEventListener('keydown', (e) => {
+    const n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : -1;
+    if (n < 0) return;
+    const t = tabs[(n + tabs.length) % tabs.length]; t.focus(); show(t.dataset.k, true);
+  });
+});
+const h = location.hash.slice(1);
+show(LEVELS[h] ? h : 'bak');
+if (h === 'kalendar') document.getElementById('kalendar').scrollIntoView();
+</script>
+</body>
+</html>

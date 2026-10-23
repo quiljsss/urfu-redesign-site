@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Наука: УрФУ</title>
+<meta name="description" content="Наука в УрФУ: 164 лаборатории, шесть прорывных проектов, заказ исследований для предприятий, гранты, публикации и путь от студенческого проекта до защиты диссертации.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.nums { padding: 48px 0; border-block: 1px solid var(--line); }
+
+/* Четыре направления: фото, название, две лаборатории */
+.dirs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 24px; }
+.dirs a { display: block; text-decoration: none; }
+.dirs img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.dirs h3 { margin-top: 16px; font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
+.dirs a:hover h3 { color: var(--blue); }
+.dirs p { margin-top: 10px; font-size: 15px; color: var(--ink-2); }
+
+/* Прорывные проекты: название и научный руководитель */
+.proj li { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 8px 48px; padding: 22px 0 24px; border-top: 1px solid var(--line); }
+.proj li:first-child { border-top: 2px solid var(--ink); }
+.proj b { font-size: 21px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; }
+.proj p { color: var(--ink-2); }
+.proj p span { display: block; font-size: 14px; }
+
+/* Для предприятий */
+.order { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 72px; align-items: center; }
+.order img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.order .lead { max-width: 52ch; }
+.why { margin-top: 28px; }
+.why li { padding: 14px 0; border-top: 1px solid var(--line); font-size: 18px; font-weight: 500; }
+.order .btn { margin-top: 28px; }
+
+/* Публикации и события */
+.duo { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 72px; align-items: start; }
+.duo .panel-ev { margin-top: 28px; }
+
+@media (max-width: 1100px) {
+  .dirs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .order, .duo { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+}
+@media (max-width: 640px) {
+  .nums { padding: 36px 0; }
+  .dirs { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .dirs a { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 4px 16px; align-items: start; }
+  .dirs img { grid-row: span 2; aspect-ratio: 1; }
+  .dirs h3 { margin-top: 0; font-size: 18px; }
+  .dirs p { margin-top: 0; font-size: 14px; }
+  .proj li { grid-template-columns: minmax(0, 1fr); padding: 18px 0 20px; }
+  .proj b { font-size: 19px; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Наука: УрФУ">
+<meta property="og:description" content="Наука в УрФУ: 164 лаборатории, шесть прорывных проектов, заказ исследований для предприятий, гранты, публикации и путь от студенческого проекта до защиты диссертации.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Наука">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Наука</li></ol></nav>
+      <h1 class="t-h1" id="h1">Наука</h1>
+      <p class="lead">Лаборатории, научные проекты и гранты. Здесь можно заказать исследование, опубликовать статью и пройти путь от студенческого проекта до защиты диссертации.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px" id="chasto" aria-labelledby="hot-h">
+    <div class="wrap">
+      <h2 class="t-h3" id="hot-h" style="margin-bottom:20px">Чаще всего</h2>
+      <div class="hot">
+        <a class="hot__main" href="#zakaz"><b>Заказать исследование</b><span>Измерения и исследования по заказу предприятий</span></a>
+        <a href="#"><b>Конкурсы и гранты</b><span>Куда подать заявку</span></a>
+        <a href="#publikacii"><b>Опубликовать статью</b><span>Выплаты за публикации в зарубежных журналах</span></a>
+        <a href="#put"><b>Аспирантура</b><span>Поступление и защита диссертации</span></a>
+        <a href="#put"><b>Молодёжная наука</b><span>Студенческие проекты и конкурсы</span></a>
+        <a href="#publikacii"><b>Научная библиотека</b><span>Больше 3&nbsp;миллионов изданий</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nums" aria-label="Наука в цифрах">
+    <div class="wrap">
+      <dl class="facts facts--big">
+        <div><dt>научно-исследовательских лабораторий</dt><dd>164</dd></div>
+        <div><dt>прорывных научных проектов</dt><dd>6</dd></div>
+        <div><dt>научных журналов, 12&nbsp;из них в международных базах</dt><dd>23</dd></div>
+        <div><dt>докторов наук</dt><dd>561</dd></div>
+        <div><dt>кандидатов наук</dt><dd>1&nbsp;864</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec" id="napravleniya" aria-labelledby="dir-h">
+    <div class="wrap">
+      <div class="sec__head">
+        <div>
+          <h2 class="t-h2" id="dir-h">Четыре направления</h2>
+          <p>Исследования идут на стыке наук. Лаборатории объединены вокруг четырёх прорывных направлений университета.</p>
+        </div>
+        <a class="btn btn--ghost" href="#">Все лаборатории</a>
+      </div>
+      <ul class="dirs">
+        <li><a href="#"><img decoding="async" src="img/photo/lab-board.jpg" alt="Электронная плата под увеличительным стеклом" width="1280" height="853" loading="lazy">
+          <h3>Информационные технологии и человек в информационном обществе</h3>
+          <p>Лаборатория многомасштабного математического моделирования «Мультимод», лаборатория международной и региональной экономики</p></a></li>
+        <li><a href="#"><img decoding="async" src="img/photo/lab-gloves.jpg" alt="Исследовательница с пробиркой в лаборатории" width="1280" height="853" loading="lazy">
+          <h3>Энергетика, ресурсосбережение, рациональное природопользование</h3>
+          <p>Лаборатория физики климата и окружающей среды</p></a></li>
+        <li><a href="#"><img decoding="async" src="img/photo/lab-laser.jpg" alt="Сотрудница у лазерной установки" width="1280" height="853" loading="lazy">
+          <h3>Гибкие технологии и новые материалы</h3>
+          <p>НАНОФЕР, лаборатория магнитной сенсорики, лаборатория перспективных материалов пониженной размерности</p></a></li>
+        <li><a href="#"><img decoding="async" src="img/photo/lab-device.jpg" alt="Сотрудник исследует растения под фитолампами" width="1280" height="853" loading="lazy">
+          <h3>Живые системы и здоровье</h3>
+          <p>MIFE-лаборатория мембранного транспорта и биологии стресса, лаборатория молекулярных механизмов и экологии морфогенеза</p></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0" id="proekty" aria-labelledby="proj-h">
+    <div class="wrap">
+      <div class="sec__head">
+        <div>
+          <h2 class="t-h2" id="proj-h">Прорывные проекты</h2>
+          <p>Шесть мегапроектов университет ведёт вместе с академическими и индустриальными партнёрами России и мира.</p>
+        </div>
+      </div>
+      <ol class="proj">
+        <li><b>Магнитные материалы для энергетики, электроники и спинтроники</b><p><span>Научный руководитель</span>Владимир Васильевич Устинов, академик РАН</p></li>
+        <li><b>Климато-экологический мониторинг Российской Арктики</b><p><span>Научный руководитель</span>Жан Жузель, Франция</p></li>
+        <li><b>Электрохимическая энергетика: новые материалы и устройства</b><p><span>Научный руководитель</span>Panagiotis E. Tsiakaras, Университет Фессалии, Греция</p></li>
+        <li><b>Протопланетное вещество в космосе, Солнечной системе и на Земле</b><p><span>Научный руководитель</span>Андрей Михайлович Соболев, Коуровская астрономическая обсерватория</p></li>
+        <li><b>Новые функциональные материалы на основе углерода</b><p><span>Научный руководитель</span>Эрнст Загидович Курмаев, Институт физики металлов УрО РАН</p></li>
+        <li><b>Умные энергосети Smart Grid на основе больших данных</b><p><span>Научный руководитель</span>Александр Борисович Куржанский, академик РАН</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0" id="put" aria-labelledby="put-h">
+    <div class="wrap">
+      <div class="sec__head">
+        <div>
+          <h2 class="t-h2" id="put-h">Путь в науку</h2>
+          <p>От первого студенческого проекта до защиты диссертации. На каждом шаге есть, куда обратиться.</p>
+        </div>
+      </div>
+      <ol class="route" style="--done: 0%">
+        <li class="is-done"><h3>Студенческая наука</h3><p>Портал молодёжной науки, студенческие конкурсы и олимпиады.</p><a href="#">Портал молодёжной науки</a></li>
+        <li><h3>Магистратура</h3><p>Исследовательские программы в институтах и лабораториях университета.</p><a href="katalog.html">Программы магистратуры</a></li>
+        <li><h3>Аспирантура</h3><p>Подготовка научно-педагогических кадров, направления и нормативные документы.</p><a href="#">Об аспирантуре</a></li>
+        <li><h3>Защита диссертации</h3><p>Диссертационные советы, порядок и сроки защиты.</p><a href="#">Диссертационные советы</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0" id="zakaz" aria-labelledby="order-h">
+    <div class="wrap order">
+      <div>
+        <h2 class="t-h2" id="order-h">Исследования для предприятий</h2>
+        <p class="lead">Центр коллективного пользования объединяет лаборатории, их приборы и учёных. Предприятие заказывает у них измерения и исследования.</p>
+        <ul class="why">
+          <li>Не нужно покупать и содержать дорогое оборудование</li>
+          <li>Измерения по аттестованным методикам</li>
+          <li>Исследования на территории университета для задач предприятия</li>
+        </ul>
+        <a class="btn btn--blue" href="#">Обсудить задачу</a>
+      </div>
+      <img decoding="async" src="img/photo/lab-sample.jpg" alt="Образец в камере исследовательской установки" width="1280" height="853" loading="lazy">
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0" id="publikacii" aria-labelledby="pub-h">
+    <div class="wrap duo">
+      <div>
+        <h2 class="t-h2" id="pub-h">Публикации</h2>
+        <a class="panel-ev" href="https://urfu.ru/ru/science/stimul-pablik/">
+          <span class="panel-ev__d">Сотрудникам</span>
+          <span class="panel-ev__t">Программа «Научная публикация — это реально!»</span>
+          <span class="panel-ev__g">Выплаты за статьи в зарубежных журналах</span>
+        </a>
+        <ul class="rows">
+          <li><a href="#">Журналы УрФУ <span>23 журнала, 12 в международных базах</span></a></li>
+          <li><a href="#">Издательство <span>от 250 до 400 книг в год</span></a></li>
+          <li><a href="#">Научно-исследовательский портал <span>ИАС PURE</span></a></li>
+          <li><a href="#">Электронный научный архив <span>Тексты и данные</span></a></li>
+          <li><a href="#">Зональная научная библиотека <span>Больше 3 миллионов изданий</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="head-row"><h2 class="t-h2">Ближайшее</h2><a href="#">Все события</a></div>
+        <ul class="agenda">
+          <li><time>до 1 ноября</time><a href="#">Премия губернатора для молодых учёных</a><span>Приём заявок</span></li>
+          <li><time>12–14 ноября</time><a href="#">Российские регионы в фокусе перемен</a><span>Международная конференция</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="js/site.js"></script>
+</body>
+</html>

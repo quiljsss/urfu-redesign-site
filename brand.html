@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Знак УрФУ</title>
+<meta name="description" content="Знак «Путь и точка»: версии, размеры, цвета и применение в интерфейсе.">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.b-hero { padding-top: 64px; padding-bottom: 80px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+.b-hero p { margin-top: 20px; font-size: 20px; color: var(--ink-2); max-width: 36ch; }
+.b-big { aspect-ratio: 1; max-width: 520px; width: 100%; justify-self: end; }
+.b-big .sign-svg { width: 100%; height: 100%; }
+.b-sec { padding: 72px 0; border-top: 1px solid var(--line); }
+.b-sec > .wrap > p { margin-top: 12px; color: var(--ink-2); max-width: 60ch; font-size: 18px; }
+.b-grid { margin-top: 36px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.b-tile { border-radius: 16px; background: var(--bg); min-height: 240px; padding: 32px; display: grid; place-items: center; position: relative; }
+.b-tile small { position: absolute; left: 20px; bottom: 14px; font-size: 13px; color: var(--ink-2); }
+.b-tile--navy { background: var(--navy); } .b-tile--blue { background: var(--blue); } .b-tile--sun { background: var(--sun); }
+.b-tile--navy small, .b-tile--blue small, .b-tile--sun small { color: rgba(255,255,255,.85); }
+.b-tile .lockup { font-size: 72px; }
+.b-sizes { display: flex; align-items: end; gap: 28px; }
+.b-sizes span { display: block; }
+.b-sizes .sign-svg { width: 100%; height: 100%; }
+.b-dots { display: flex; gap: 20px; flex-wrap: wrap; }
+.b-dots figure { margin: 0; text-align: center; font-size: 14px; color: var(--ink-2); }
+.b-dots span { display: block; width: 96px; height: 96px; margin-bottom: 8px; }
+.b-dots .sign-svg { width: 100%; height: 100%; }
+
+/* Точка «сейчас» в шагах поступления */
+.path { margin-top: 40px; position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.path::before { content: ""; position: absolute; left: 0; right: 0; top: 11px; height: 4px; border-radius: 2px; background: var(--blue); }
+.path li { position: relative; padding-top: 44px; padding-right: 24px; }
+.path li::before { content: ""; position: absolute; top: 5px; left: 0; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 4px solid var(--blue); }
+.path li.is-here::before { top: 1px; width: 24px; height: 24px; border: 0; background: var(--sun); box-shadow: 0 0 0 6px #fff; }
+.path b { display: block; font-size: 18px; }
+.path li.is-here b::after { content: "сейчас"; margin-left: 8px; font-size: 14px; color: var(--blue); white-space: nowrap; }
+.path span { color: var(--ink-2); font-size: 15px; }
+.rules { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 40px; }
+.rules li { border-top: 2px solid var(--ink); padding-top: 14px; }
+.rules b { display: block; font-size: 18px; margin-bottom: 4px; }
+.rules span { color: var(--ink-2); }
+@media (max-width: 900px) {
+  .b-hero, .b-grid, .rules { grid-template-columns: minmax(0, 1fr); }
+  .b-big { max-width: 240px; justify-self: start; order: -1; }
+  .b-tile .lockup { font-size: 52px; }
+  /* на телефоне путь вертикальный: линия слева, шаги друг под другом */
+  .path { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+  .path::before { left: 10px; right: auto; top: 6px; bottom: 6px; width: 4px; height: auto; }
+  .path li { padding: 0 0 0 40px; }
+  .path li::before { top: 2px; left: 2px; }
+  .path li.is-here::before { top: -2px; left: 0; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Знак УрФУ">
+<meta property="og:description" content="Знак «Путь и точка»: версии, размеры, цвета и применение в интерфейсе.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="universitet">
+<div data-header></div>
+<main id="main" tabindex="-1">
+  <div class="wrap b-hero">
+    <div>
+      <h1 class="t-h1">Знак «Путь и точка»</h1>
+      <p>Из буквы «У» вырастает дорога, а точка на ней показывает, где вы сейчас. Одна идея для логотипа, сайта и навигации по кампусу.</p>
+    </div>
+    <div class="b-big" data-sign="color"></div>
+  </div>
+
+  <section class="b-sec">
+    <div class="wrap">
+      <h2 class="t-h2">Версии</h2>
+      <p>Подпись набирается Unbounded SemiBold в три строки и по высоте равна знаку. Градиент «Солнце» живёт только в точке.</p>
+      <div class="b-grid">
+        <div class="b-tile" data-lockup="color"><small>Основная</small></div>
+        <div class="b-tile b-tile--navy" data-lockup="white"><small>На тёмном</small></div>
+        <div class="b-tile" data-lockup="color-en"><small>Английская</small></div>
+        <div class="b-tile b-tile--blue" data-lockup="white"><small>На синем</small></div>
+        <div class="b-tile" style="color:var(--ink)" data-lockup="mono"><small>В одну краску</small></div>
+        <div class="b-tile b-tile--sun" data-lockup="white"><small>На «Солнце»</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="b-sec">
+    <div class="wrap">
+      <h2 class="t-h2">Мелкие размеры</h2>
+      <p>Знак рассчитан на 16 px: две линии и точка не слипаются.</p>
+      <div class="b-grid">
+        <div class="b-tile"><div class="b-sizes"><span style="width:16px;height:16px" data-sign="color"></span><span style="width:24px;height:24px" data-sign="color"></span><span style="width:32px;height:32px" data-sign="color"></span><span style="width:64px;height:64px" data-sign="color"></span></div><small>16, 24, 32, 64 px</small></div>
+        <div class="b-tile" style="background:#fff;border:1px solid var(--line)"><span style="width:120px;height:120px;border-radius:28px;background:var(--blue);padding:22px;display:block" data-sign="white"></span><small>Иконка приложения</small></div>
+        <div class="b-tile b-tile--navy"><span style="width:120px;height:120px;border-radius:50%;background:var(--sun);padding:24px;display:block" data-sign="white"></span><small>Аватар в соцсетях</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="b-sec">
+    <div class="wrap">
+      <h2 class="t-h2">Точка ведёт по сайту</h2>
+      <p>Та же точка отмечает текущий шаг. Абитуриент сразу видит, где он находится и что дальше.</p>
+      <ol class="path">
+        <li><b>Выбрать программу</b><span>Каталог и фильтр по ЕГЭ</span></li>
+        <li><b>Оценить шансы</b><span>Калькулятор баллов</span></li>
+        <li class="is-here"><b>Познакомиться</b><span>Дни открытых дверей 23–30 января</span></li>
+        <li><b>Подать документы</b><span>Онлайн или лично</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="b-sec">
+    <div class="wrap">
+      <h2 class="t-h2">Правила</h2>
+      <ul class="rules">
+        <li><b>Один главный цвет</b><span>Синий #1E4391. «Солнце» только в точке и на одной крупной поверхности на экране.</span></li>
+        <li><b>Точка значит «здесь»</b><span>Не используем её как украшение. Она отмечает текущее место, шаг или выбранный пункт.</span></li>
+        <li><b>Поле вокруг знака</b><span>Не меньше диаметра точки с каждой стороны.</span></li>
+        <li><b>Знак не меняем</b><span>Не вращаем, не обводим, не добавляем тени и не перекрашиваем линии в градиент.</span></li>
+        <li><b>Подпись живым текстом</b><span>Unbounded SemiBold, три строки, без разрядки.</span></li>
+        <li><b>Институты</b><span>Знак общий, у института меняется только подпись: название в три строки.</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+<div data-footer></div>
+<script src="js/site.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-lockup]').forEach((el) => {
+    const [mode, lang] = el.dataset.lockup.split('-');
+    el.insertAdjacentHTML('afterbegin', LOCKUP(mode, lang || 'ru'));
+  });
+});
+</script>
+</body>
+</html>

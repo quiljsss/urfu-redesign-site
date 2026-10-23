@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Программа: УрФУ</title>
+<meta name="description" content="Страница образовательной программы УрФУ: направление, институт, формы и срок обучения, описание, как поступить.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.ph { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; align-items: start; }
+.ph__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.ph h1 { margin-top: 0; }
+.ph__cta { display: grid; gap: 12px; padding: 28px; border-radius: var(--radius); background: var(--blue); color: #fff; }
+.ph__cta p { font-size: 18px; font-weight: 600; line-height: 1.35; }
+.ph__cta .btn { width: 100%; }
+.ph__cta .btn--ghost { color: #fff; }
+.ph__cta small { color: rgba(255,255,255,.82); font-size: 14px; }
+
+.facts-band { padding: 40px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.body { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 80px; align-items: start; }
+.about p { font-size: 19px; line-height: 1.65; max-width: 62ch; }
+.about p + p { margin-top: 18px; }
+.side-box { display: grid; gap: 4px; padding: 16px 0 0; border-top: 2px solid var(--ink); }
+.side-box + .side-box { margin-top: 40px; }
+.side-box h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.side-box .linklist { grid-template-columns: minmax(0, 1fr); }
+.side-box .linklist a { font-size: 16px; padding: 12px 0; }
+.mini { display: grid; gap: 0; }
+.mini a { display: block; padding: 14px 0; border-top: 1px solid var(--line); text-decoration: none; }
+.mini a:hover b { color: var(--blue); }
+.mini b { display: block; font-weight: 600; }
+.mini span { font-size: 14px; color: var(--ink-2); }
+
+.adm { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 80px; align-items: start; }
+.ex { counter-reset: pr; }
+.ex li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+.ex li:last-child { border-bottom: 1px solid var(--line); }
+.ex li::before { counter-increment: pr; content: counter(pr); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--blue); color: var(--blue); font-weight: 600; font-size: 15px; }
+.ex b { display: block; font-weight: 600; font-size: 18px; }
+.ex .or { font-size: 15px; color: var(--ink-2); margin-bottom: 2px; }
+.ex label { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 4px 0; }
+.ex label span { min-width: 0; flex: 1 1 220px; }
+.ex label em { font-style: normal; color: var(--ink-2); font-size: 15px; margin-left: 6px; }
+.ex input[type="number"] { width: 92px; min-height: 44px; padding: 0 12px; border: 1px solid var(--ink-2); border-radius: 999px; font: inherit; font-weight: 600; text-align: center; }
+.ex input[type="number"]:focus { outline: 0; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(30, 67, 145, .15); }
+.ex input[type="radio"] { width: 20px; height: 20px; accent-color: var(--blue); }
+.verdict { margin-top: 24px; min-height: 56px; font-size: 18px; }
+.verdict b { color: var(--blue); }
+.adm .facts { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+.adm .facts dt { font-size: 15px; }
+.adm small { display: block; margin-top: 28px; font-size: 14px; color: var(--ink-2); }
+
+@media (max-width: 1100px) {
+  .adm { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .ph, .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+@media (max-width: 640px) {
+  .ph__cta { padding: 20px; }
+  .about p { font-size: 17px; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Программа: УрФУ">
+<meta property="og:description" content="Страница образовательной программы УрФУ: направление, институт, формы и срок обучения, описание, как поступить.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Программы">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li><a href="katalog.html">Каталог программ</a></li><li aria-current="page" data-crumb>Программа</li></ol></nav>
+      <div class="ph" style="margin-top:28px">
+        <div>
+          <div class="ph__tags" data-tags></div>
+          <h1 class="t-h1" id="h1" data-name></h1>
+          <p class="lead" data-dir></p>
+        </div>
+        <div class="ph__cta">
+          <p>Набор 2026 года. Сроки и условия приёма в календаре на странице поступления.</p>
+          <a class="btn btn--white" data-apply href="postuplenie.html#bak">Как поступить</a>
+          <a class="btn btn--ghost" data-site href="#" rel="noopener">Программа на сайте УрФУ</a>
+          <small data-cta-note>Места, вступительные испытания и стоимость — ниже, по документам приёма 2026 года.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts-band" aria-label="Коротко о программе">
+    <div class="wrap"><dl class="facts facts--text" data-facts></dl></div>
+  </section>
+
+  <section class="sec sec--grey" id="postuplenie-2026" aria-labelledby="adm-h" data-adm hidden>
+    <div class="wrap">
+      <h2 class="t-h2" id="adm-h">Поступление 2026</h2>
+      <p class="lead" style="font-size:18px">Впишите свои баллы ЕГЭ: сразу видно, проходите ли вы минимумы и положена ли скидка.</p>
+      <div class="adm" style="margin-top:40px">
+        <form data-ex-form><ol class="ex" data-ex></ol><p class="verdict" aria-live="polite" data-verdict></p></form>
+        <div><dl class="facts facts--big" data-adm-facts></dl><small data-adm-src></small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="about-h">
+    <div class="wrap body">
+      <div class="about">
+        <h2 class="t-h2" id="about-h" style="margin-bottom:28px">О программе</h2>
+        <div data-about></div>
+        <h2 class="t-h3" style="margin:56px 0 28px">Как поступить на программу</h2>
+        <ol class="route route--v" style="--done: 0%">
+          <li class="is-here" aria-current="step"><h3>Выбрать программу</h3><p>Вы на странице программы. Похожие собраны рядом, чтобы сравнить.</p></li>
+          <li><h3>Проверить баллы</h3><p>Минимумы по предметам и скидка за высокие баллы — в блоке «Поступление 2026» выше.</p><a href="#postuplenie-2026">Вписать свои баллы</a></li>
+          <li><h3>Подать документы</h3><p>Лично, онлайн или через Госуслуги. Есть пошаговая инструкция.</p><a href="postuplenie.html">Как подать</a></li>
+          <li><h3>Дать согласие на зачисление</h3><p>Без согласия в установленный срок в приказ о зачислении не попасть.</p><a href="postuplenie.html#kalendar">Смотреть сроки</a></li>
+        </ol>
+      </div>
+      <div class="side">
+        <div class="side-box">
+          <h3>Для поступающих</h3>
+          <ul class="linklist" data-docs></ul>
+        </div>
+        <div class="side-box" data-similar-box>
+          <h3>Похожие программы</h3>
+          <div class="mini" data-similar></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="data/programs.js"></script>
+<script src="data/admission.js"></script>
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+<script>
+const $ = (s) => document.querySelector(s);
+const p = BY_ID[new URLSearchParams(location.search).get('id')] || PROGRAMS.find((x) => x.level === 'бакалавриат');
+const inst = INST[p.inst];
+document.title = `${p.name}: УрФУ`;
+$('[data-crumb]').textContent = p.name;
+$('[data-name]').textContent = p.name;
+$('[data-dir]').textContent = `${p.code} ${p.dirName}`;
+$('[data-tags]').innerHTML = `<span class="tag">${p.levelLabel}</span><span class="tag tag--grey">${inst[0]}</span>`;
+$('[data-site]').href = `https://programms.edu.urfu.ru/ru/${p.id}/`;
+const facts = [
+  ['Институт', inst[1]],
+  ['Формы обучения', p.formsLabel],
+  ['Срок', p.term && p.term.includes(': ') ? p.term.split(': ')[1] : 'Уточняйте в приёмной комиссии'],
+  ['Язык обучения', p.lang || 'Русский'],
+  ['Научная отрасль', p.field],
+].filter(([, v]) => v);
+$('[data-facts]').innerHTML = facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${escHtml(v)}</dd></div>`).join('');
+const cut = (t) => { if (t.length < 400 && /[.!?]$/.test(t)) return t; const i = Math.max(t.lastIndexOf('. '), t.lastIndexOf('! ')); return i > 120 ? t.slice(0, i + 1) : t.replace(/\s\S*$/, '') + '…'; };
+$('[data-about]').innerHTML = p.about ? `<p>${escHtml(cut(p.about))}</p>` : '<p>Описание программы публикуется на странице программы в каталоге УрФУ.</p>';
+const lvlKey = p.level === 'магистратура' || p.level === 'специализированное высшее образование' ? 'mag' : 'bak';
+$('[data-apply]').href = `postuplenie.html#${lvlKey}`;
+/* Документы приёма своего уровня: бакалавриат на urfu.ru, магистратура на magister.urfu.ru */
+const DOCS = lvlKey === 'mag'
+  ? ['https://magister.urfu.ru/fileadmin/user_upload/site_15406/2026/Pravila_priema_magistratura.pdf', 'https://magister.urfu.ru/fileadmin/user_upload/site_15406/2026/PLAN_priema_magistratura_20_01_2026.pdf']
+  : ['https://urfu.ru/fileadmin/user_upload/urfu.ru/documents/applicant/2026/Pravila_priema_bakalavriat.pdf', 'https://urfu.ru/fileadmin/user_upload/urfu.ru/documents/applicant/2026/PLAN_priema_bakalavriat_20_01_2026.pdf'];
+$('[data-docs]').innerHTML = [['Правила приёма', DOCS[0]], ['Стоимость обучения', 'https://urfu.ru/ru/applicant/docs-abiturient/stoimost-obuchenija/'], ['План приёма', DOCS[1]], ['Календарь приёма', `postuplenie.html#kalendar`], ['Контакты приёмной комиссии', 'https://urfu.ru/ru/applicant/contacts/']]
+  .map(([t, h]) => `<li><a href="${h}">${t}</a></li>`).join('');
+/* Поступление 2026: испытания с минимумами, места и цена из документов приёма (data/admission.js) */
+const A = (window.ADMISSION || {})[p.id];
+if (A) {
+  $('[data-adm]').hidden = false;
+  const rub = (n) => n.toLocaleString('ru-RU') + '\u00a0₽';
+  $('[data-ex]').innerHTML = A.e.map((prio, i) => prio.length === 1
+    ? `<li><div><label><span><b>${prio[0][0]}</b><em>от ${prio[0][1]}</em></span><input type="number" min="0" max="100" inputmode="numeric" placeholder="балл" data-min="${prio[0][1]}" data-p="${i}" aria-label="${prio[0][0]}, ваш балл"></label></div></li>`
+    : `<li><div><p class="or">На выбор, один предмет</p>${prio.map(([s, m], j) => `<label><input type="radio" name="p${i}" value="${j}"${j ? '' : ' checked'} aria-label="${s}"><span>${s}<em>от ${m}</em></span><input type="number" min="0" max="100" inputmode="numeric" placeholder="балл" data-min="${m}" data-p="${i}" data-j="${j}" aria-label="${s}, ваш балл"></label>`).join('')}</div></li>`).join('');
+  const b = A.b || [0, 0, 0, 0, 0, 0];
+  const budget = b[0] + b[2] + b[4], paid = b[1] + b[3] + b[5];
+  $('[data-adm-facts]').innerHTML = [
+    budget ? [plural(budget, ['бюджетное место', 'бюджетных места', 'бюджетных мест']), budget] : null,
+    paid ? [plural(paid, ['платное место', 'платных места', 'платных мест']), paid] : null,
+    A.p ? ['в год на 1 курсе, платное обучение', rub(A.p[0])] : null,
+  ].filter(Boolean).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+  $('[data-adm-src]').innerHTML = `Места — <a href="${DOCS[1]}">план приёма 2026</a>, все формы обучения вместе. Испытания и минимумы — перечень вступительных испытаний 2026. ${A.p ? `Стоимость — приказ № 1122/03 от 12.12.2025.` : `Стоимость базового высшего образования — <a href="https://urfu.ru/ru/applicant/docs-abiturient/stoimost-obuchenija/">отдельным приказом</a>.`}`;
+  const form = $('[data-ex-form]');
+  const check = () => {
+    let sum = 0, filled = 0, fails = [];
+    A.e.forEach((prio, i) => {
+      const j = prio.length === 1 ? 0 : +(form.querySelector(`input[name="p${i}"]:checked`) || { value: 0 }).value;
+      const inp = form.querySelector(`input[type="number"][data-p="${i}"]${prio.length === 1 ? '' : `[data-j="${j}"]`}`);
+      const v = inp.value === '' ? null : Math.min(100, Math.max(0, +inp.value));
+      if (v === null) return;
+      filled++; sum += v;
+      if (v < prio[j][1]) fails.push(`${prio[j][0].replace(' (профильный уровень)', '')} — нужно от ${prio[j][1]}`);
+    });
+    const out = $('[data-verdict]');
+    if (!filled) { out.textContent = ''; return; }
+    if (fails.length) { out.innerHTML = `Пока не хватает: ${fails.join(', ')}.`; return; }
+    if (filled < A.e.length) { out.innerHTML = `Минимумы пройдены. Впишите баллы по всем ${A.e.length} испытаниям, чтобы увидеть сумму.`; return; }
+    let t = `Минимумы пройдены, сумма <b>${sum}</b>. Можно подавать документы; проходной балл на бюджет зависит от конкурса.`;
+    if (A.p) t += sum >= A.p[1] ? ` При платном обучении положена скидка за высокие баллы: <b>${rub(A.p[2])}</b> в год вместо ${rub(A.p[0])}.` : ` Скидка на платное обучение — от ${A.p[1]} баллов.`;
+    out.innerHTML = t;
+  };
+  form.addEventListener('input', check);
+  form.addEventListener('change', check);
+} else $('[data-cta-note]').textContent = 'Места, испытания и стоимость — в плане приёма и на странице стоимости обучения.';
+const sim = PROGRAMS.filter((x) => x.id !== p.id && (x.dirName === p.dirName || x.inst === p.inst) && x.level === p.level)
+  .sort((a, b) => (b.dirName === p.dirName) - (a.dirName === p.dirName)).slice(0, 4);
+$('[data-similar-box]').hidden = !sim.length;
+$('[data-similar]').innerHTML = sim.map((x) => `<a href="programma.html?id=${x.id}"><b>${escHtml(x.name)}</b><span>${x.code} ${escHtml(x.dirName)}</span></a>`).join('');
+</script>
+</body>
+</html>

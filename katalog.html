@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог программ УрФУ</title>
+<meta name="description" content="Каталог образовательных программ УрФУ набора 2026 года: поиск по названию и направлению, фильтры по уровню, институту и форме обучения.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.cat { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 56px; align-items: start; padding-bottom: 96px; }
+/* Фильтры идут вместе со страницей: прилипшая панель выше экрана обрезала нижние группы, и не было видно, что она листается */
+.filters { padding: 4px 4px 4px 0; }
+.filters summary { display: none; }
+.filters > .fg, .filters > .reset { margin-top: 28px; }
+.filters > .fg:first-of-type { margin-top: 0; }
+.fg { display: grid; gap: 10px; }
+.fg .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.fg .chip { min-height: 40px; padding: 0 14px; font-size: 15px; }
+.find2 { position: relative; }
+.find2 svg { position: absolute; left: 16px; top: 50%; width: 22px; height: 22px; transform: translateY(-50%); pointer-events: none; }
+.find2 .input { padding-left: 48px; }
+.hint { font-size: 14px; color: var(--ink-2); }
+.prog__side span.b { color: var(--blue); font-weight: 600; white-space: normal; max-width: 280px; }
+.reset { justify-self: start; border: 0; background: none; padding: 8px 0; font-weight: 600; color: var(--blue); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+
+.res__bar { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 2px solid var(--ink); }
+.res__n { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
+.prog { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 8px 24px; padding: 22px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+.prog__t { font-size: 21px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+.prog:hover .prog__t { color: var(--blue); }
+.prog__m { grid-column: 1; color: var(--ink-2); font-size: 15px; }
+.prog__side { grid-column: 2; grid-row: 1 / span 2; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; text-align: right; font-size: 15px; font-weight: 600; white-space: nowrap; }
+.prog__side span:nth-child(2) { font-weight: 400; color: var(--ink-2); }
+.empty { padding: 56px 0; }
+.empty p { margin-top: 8px; color: var(--ink-2); }
+.more-btn { margin-top: 32px; }
+
+@media (max-width: 1100px) {
+  .cat { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .filters { position: static; max-height: none; overflow: visible; padding: 0; }
+}
+@media (max-width: 640px) {
+  .filters { border: 1px solid var(--line); border-radius: var(--radius); padding: 0 16px; }
+  .filters > .fg, .filters > .reset { margin-top: 20px; }
+  .filters summary { display: flex; align-items: center; justify-content: space-between; min-height: 56px; font-weight: 600; cursor: pointer; list-style: none; }
+  .filters summary::after { content: "+"; font-size: 24px; font-weight: 500; }
+  .filters[open] summary::after { content: "–"; }
+  .filters[open] { padding-bottom: 20px; }
+  .filters:not([open]) > :not(summary) { display: none; }
+  .prog { grid-template-columns: minmax(0, 1fr); }
+  .prog__side { grid-column: 1; grid-row: auto; flex-direction: row; justify-content: flex-start; flex-wrap: wrap; gap: 4px 12px; text-align: left; }
+  .prog__t { font-size: 19px; }
+  .cat { padding-bottom: 56px; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Каталог программ УрФУ">
+<meta property="og:description" content="Каталог образовательных программ УрФУ набора 2026 года: поиск по названию и направлению, фильтры по уровню, институту и форме обучения.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Программы">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Каталог программ</li></ol></nav>
+      <h1 class="t-h1" id="h1">Каталог программ</h1>
+      <p class="lead" data-lead></p>
+    </div>
+  </section>
+
+  <div class="wrap cat">
+    <details class="filters" id="filters" open>
+      <summary>Фильтры</summary>
+      <div class="fg">
+        <label class="label" for="q">Название или направление</label>
+        <div class="find2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input class="input" id="q" type="search" placeholder="Химия или 09.03.01" autocomplete="off">
+        </div>
+      </div>
+      <div class="fg" role="group" aria-labelledby="l-ege" id="ege"><span class="label" id="l-ege">Мои предметы ЕГЭ</span><div class="chips" data-ege></div><p class="hint" data-ege-hint>Отметьте, что сдаёте, кроме русского языка: останутся программы, куда с ними можно поступить.</p></div>
+      <div class="fg" role="group" aria-labelledby="l-level"><span class="label" id="l-level">Уровень</span><div class="chips" data-chips="level"></div></div>
+      <div class="fg"><label class="label" for="inst">Институт</label><select class="select" id="inst"></select></div>
+      <div class="fg" role="group" aria-labelledby="l-form"><span class="label" id="l-form">Форма обучения</span><div class="chips" data-chips="form"></div></div>
+      <div class="fg" role="group" aria-labelledby="l-lang"><span class="label" id="l-lang">Язык обучения</span><div class="chips" data-chips="lang"></div></div>
+      <button class="reset" type="button" id="reset">Сбросить фильтры</button>
+    </details>
+
+    <section aria-labelledby="res-h">
+      <div class="res__bar"><h2 class="res__n" id="res-h" aria-live="polite" data-count></h2></div>
+      <div data-list></div>
+      <button class="btn btn--ghost more-btn" type="button" id="more" hidden>Показать ещё</button>
+    </section>
+  </div>
+</main>
+
+<div data-footer></div>
+
+<script src="data/programs.js"></script>
+<script src="data/admission.js"></script>
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+<script>
+const $ = (s) => document.querySelector(s);
+const STEP = 30;
+const OPTS = {
+  level: [['', 'Любой'], ...LEVEL_ORDER.map((k) => [k, LEVEL_LABEL[k]])],
+  form: [['', 'Любая'], ...Object.entries(FORM_LABEL)],
+  lang: [['', 'Любой'], ['ru', 'Русский'], ['en', 'Английский']],
+};
+const state = { q: '', ege: '', level: '', inst: '', form: '', lang: '' };
+/* Предметы ЕГЭ из перечня вступительных испытаний 2026; русский язык нужен везде */
+const EGE = [['m', 'Математика', 'Математика (профильный уровень)'], ['f', 'Физика', 'Физика'], ['i', 'Информатика', 'Информатика'], ['h', 'Химия', 'Химия'], ['b', 'Биология', 'Биология'],
+  ['o', 'Обществознание', 'Обществознание'], ['s', 'История', 'История'], ['l', 'Иностранный язык', 'Иностранный язык'], ['g', 'География', 'География'], ['t', 'Литература', 'Литература']];
+const ADM = window.ADMISSION || {};
+const egeSet = () => new Set(state.ege.split('').map((k) => (EGE.find((e) => e[0] === k) || [])[2]).filter(Boolean).concat('Русский язык'));
+/* по каждому приоритету подходит хотя бы один отмеченный предмет; творческое или профессиональное испытание сдают в УрФУ */
+const fits = (p, have) => ADM[p.id] && ADM[p.id].e.every((prio) => prio.some(([sub]) => have.has(sub) || /испытание/.test(sub)));
+const extra = (p) => ADM[p.id] && ADM[p.id].e.some((prio) => prio.length === 1 && /испытание/.test(prio[0][0]));
+let shown = STEP;
+
+const hasEn = (p) => /англ/i.test(p.lang);
+$('#inst').innerHTML = '<option value="">Все институты</option>' +
+  Object.entries(INST).map(([k, v]) => `<option value="${k}">${v[1]}</option>`).join('');
+
+function egeChips() {
+  $('[data-ege]').innerHTML = EGE.map(([k, t]) => `<button class="chip" type="button" data-k="${k}" aria-pressed="${state.ege.includes(k)}">${t}</button>`).join('');
+}
+$('[data-ege]').addEventListener('click', (e) => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  const k = b.dataset.k;
+  state.ege = state.ege.includes(k) ? state.ege.replace(k, '') : EGE.map((x) => x[0]).filter((x) => state.ege.includes(x) || x === k).join('');
+  shown = STEP; egeChips(); render();
+});
+function chips() {
+  document.querySelectorAll('[data-chips]').forEach((box) => {
+    const k = box.dataset.chips;
+    box.innerHTML = OPTS[k].map(([v, t]) => `<button class="chip" type="button" data-v="${v}" aria-pressed="${state[k] === v}">${t}</button>`).join('');
+  });
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-chips] .chip');
+  if (!b) return;
+  state[b.parentElement.dataset.chips] = b.dataset.v; shown = STEP; chips(); render();
+});
+$('#q').addEventListener('input', (e) => { state.q = e.target.value; shown = STEP; render(); });
+$('#inst').addEventListener('change', (e) => { state.inst = e.target.value; shown = STEP; render(); });
+$('#reset').addEventListener('click', () => { Object.assign(state, { q: '', ege: '', level: '', inst: '', form: '', lang: '' }); $('#q').value = ''; $('#inst').value = ''; shown = STEP; chips(); egeChips(); render(); });
+$('#more').addEventListener('click', () => { shown += STEP; render(true); });
+
+function match(p) {
+  if (state.ege && !fits(p, egeSet())) return false;
+  if (state.level && p.level !== state.level) return false;
+  if (state.inst && p.inst !== state.inst) return false;
+  if (state.form && !p.forms.includes(state.form)) return false;
+  if (state.lang === 'en' && !hasEn(p)) return false;
+  if (state.lang === 'ru' && !/рус/i.test(p.lang)) return false;
+  if (state.q) {
+    const hay = normText(`${p.name} ${p.dir} ${INST[p.inst][0]} ${INST[p.inst][1]}`);
+    if (!normText(state.q).split(/\s+/).every((w) => hay.includes(w))) return false;
+  }
+  return true;
+}
+
+function side(p) {
+  const a = ADM[p.id]; if (!a || !a.b) return '';
+  const bud = a.b[0] + a.b[2] + a.b[4];
+  const t = [bud ? `${bud} ${plural(bud, ['бюджетное место', 'бюджетных места', 'бюджетных мест'])}` : 'Только платные места', a.p ? `${a.p[0].toLocaleString('ru-RU')}\u00a0₽\u00a0в\u00a0год` : ''].filter(Boolean).join(', ');
+  return `<span class="b">${t}${state.ege && extra(p) ? ', плюс творческое испытание' : ''}</span>`;
+}
+function render(keepFocus) {
+  /* сначала то, куда поступают после школы, потом магистерский уровень; внутри по алфавиту */
+  const after = (p) => /магистр|специализированное/.test(p.level) ? 1 : 0;
+  const list = PROGRAMS.filter(match).sort((a, b) => after(a) - after(b) || a.name.localeCompare(b.name, 'ru'));
+  $('[data-count]').textContent = list.length ? `${list.length} ${plural(list.length, ['программа', 'программы', 'программ'])}` : 'Ничего не нашлось';
+  $('[data-list]').innerHTML = list.length ? list.slice(0, shown).map((p) => `
+    <a class="prog" href="programma.html?id=${p.id}">
+      <h3 class="prog__t">${escHtml(p.name)}</h3>
+      <p class="prog__m">${p.code} ${escHtml(p.dirName)}, ${INST[p.inst][1].replace(/^Институт /, 'Институт ')}</p>
+      <div class="prog__side"><span>${p.levelLabel}</span><span>${p.formsLabel}${p.term.includes(': ') ? ', ' + p.term.split(': ')[1] : ''}</span>${side(p)}</div>
+    </a>`).join('') : `<div class="empty"><p class="t-h3">Попробуйте убрать часть фильтров</p><p>Или поищите по другому слову. Если нужной программы нет, спросите приёмную комиссию: 8 800 100-50-44.</p></div>`;
+  const act = Object.values(state).filter(Boolean).length;
+  $('#filters summary').textContent = act ? `Фильтры: выбрано ${act}` : 'Фильтры';
+  const more = $('#more'); more.hidden = shown >= list.length;
+  more.textContent = `Показать ещё ${Math.min(STEP, list.length - shown)}`;
+  const u = new URLSearchParams(Object.entries(state).filter(([, v]) => v));
+  history.replaceState(null, '', u.toString() ? '?' + u : location.pathname);
+}
+
+const init = new URLSearchParams(location.search);
+for (const k of Object.keys(state)) if (init.get(k)) state[k] = init.get(k);
+$('#q').value = state.q; $('#inst').value = state.inst; egeChips();
+$('[data-lead]').textContent = `${PROGRAMS.length} программ набора 2026 года в ${new Set(PROGRAMS.map((p) => p.inst)).size} институтах. Найдите по названию или направлению, отметьте свои предметы ЕГЭ или отфильтруйте по уровню, институту и форме обучения.`;
+if (matchMedia('(max-width: 640px)').matches) $('#filters').open = false;
+chips(); render();
+</script>
+</body>
+</html>

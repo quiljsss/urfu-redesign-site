@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ИИ-помощник: УрФУ</title>
+<meta name="description" content="ИИ-помощник отвечает на вопросы по данным сайта УрФУ. У каждого ответа есть источник и дата обновления, а человека можно позвать в любой момент.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+/* Диалог слева, правила и человек справа. Без теней: поверхность держится линией */
+.bot { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 56px; align-items: start; }
+
+.chat { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.chat__head { display: flex; justify-content: space-between; align-items: center; gap: 12px 16px; flex-wrap: wrap; padding: 16px 24px; border-bottom: 1px solid var(--line); }
+.chat__who { display: flex; align-items: baseline; gap: 4px; font-weight: 600; }
+.chat__who span span { font-weight: 400; color: var(--ink-2); }
+.chat__modes { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 24px; border-bottom: 1px solid var(--line); }
+
+.chat__log { display: flex; flex-direction: column; gap: 22px; min-height: 200px; max-height: 540px; padding: 24px; overflow-y: auto; }
+.msg--me { align-self: flex-end; max-width: 80%; padding: 12px 18px; border-radius: 20px 20px 4px 20px; background: #E8EEF9; font-size: 17px; }
+.msg--bot { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 12px; max-width: 94%; }
+.msg--bot > .dot { margin: 9px 0 0; }
+.msg__text { font-size: 18px; line-height: 1.5; }
+.msg__text p + p { margin-top: 10px; }
+.msg__src { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
+.msg__src a { color: var(--blue); font-weight: 600; }
+.msg__src button { display: block; margin-top: 6px; padding: 0; border: 0; background: none; color: var(--blue); font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.typing { color: var(--ink-2); letter-spacing: .2em; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .35; } }
+
+.chat__ask { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 24px 16px; }
+.chat__form { display: flex; gap: 12px; padding: 16px 24px; border-top: 1px solid var(--line); }
+.chat__form .input { flex: 1; min-width: 0; }
+.chat__note { padding: 0 24px 20px; font-size: 14px; color: var(--ink-2); }
+
+.how li { padding: 16px 0 18px; border-top: 1px solid var(--line); }
+.how li:first-child { border-top: 2px solid var(--ink); }
+.how b { display: block; font-size: 18px; letter-spacing: -0.01em; }
+.how p { margin-top: 4px; color: var(--ink-2); font-size: 15px; }
+.bot__side .panel-ev { margin-top: 32px; }
+.panel-ev__t a { color: #fff; text-decoration: none; }
+.panel-ev p { font-size: 15px; color: rgba(255,255,255,.85); }
+.panel-ev p a { color: #fff; }
+.proto { margin-top: 24px; font-size: 14px; color: var(--ink-2); }
+
+@media (max-width: 1100px) {
+  .bot { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+}
+@media (max-width: 640px) {
+  .chat__head, .chat__modes { padding-inline: 16px; }
+  .chat__log { min-height: 140px; max-height: 60vh; padding: 20px 16px; }
+  .chat__ask { flex-direction: column; align-items: stretch; }
+  .chat__ask .chip { justify-content: flex-start; min-height: 48px; padding: 10px 16px; border-radius: var(--radius); text-align: left; line-height: 1.3; }
+  .chat__ask, .chat__note { padding-inline: 16px; }
+  .chat__form { padding-inline: 16px; }
+  .msg--me { max-width: 92%; }
+  .msg--bot { max-width: 100%; }
+  .msg__text { font-size: 17px; }
+  .chat__form .btn { padding: 0 16px; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="ИИ-помощник: УрФУ">
+<meta property="og:description" content="ИИ-помощник отвечает на вопросы по данным сайта УрФУ. У каждого ответа есть источник и дата обновления, а человека можно позвать в любой момент.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Помощь">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">ИИ-помощник</li></ol></nav>
+      <h1 class="t-h1" id="h1">ИИ-помощник</h1>
+      <p class="lead">Отвечает по данным сайта. У каждого ответа есть источник и дата обновления. Если ответа нет, помощник так и скажет и позовёт человека.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px" aria-label="Диалог с помощником">
+    <div class="wrap bot">
+      <div class="chat" id="chat" lang="ru">
+        <div class="chat__head">
+          <p class="chat__who"><i class="dot" aria-hidden="true"></i><span data-t="who"></span></p>
+          <button class="btn btn--ghost" type="button" data-human data-t="human"></button>
+        </div>
+        <div class="chat__modes" role="group" aria-label="Кто вы">
+          <button class="chip" type="button" data-mode="abit">Абитуриент</button>
+          <button class="chip" type="button" data-mode="student">Студент</button>
+          <button class="chip" type="button" data-mode="intl">Иностранцам, на английском</button>
+        </div>
+        <div class="chat__log" id="log" role="log" aria-live="polite" aria-label="Диалог"></div>
+        <div class="chat__ask" id="ask" role="group" aria-label="Готовые вопросы"></div>
+        <form class="chat__form" id="form">
+          <label class="sr" for="q" data-t="label"></label>
+          <input class="input" id="q" type="text" autocomplete="off" data-t-ph="ph">
+          <button class="btn btn--blue" type="submit" data-t="send"></button>
+        </form>
+        <p class="chat__note" data-t="note"></p>
+      </div>
+
+      <div class="bot__side">
+        <h2 class="t-h3" style="margin-bottom:16px">Как это устроено</h2>
+        <ul class="how">
+          <li><b>Только данные сайта</b><p>Помощник отвечает только по страницам сайта.</p></li>
+          <li><b>Источник и дата</b><p>У каждого ответа ссылка на страницу и дата её обновления. Устаревшее видно сразу.</p></li>
+          <li><b>Не знает — говорит</b><p>Если ответа на сайте нет, помощник так и пишет и передаёт вопрос человеку.</p></li>
+          <li><b>Человек всегда рядом</b><p>Кнопка «Спросить человека» есть на каждом экране диалога.</p></li>
+        </ul>
+        <div class="panel-ev" id="human">
+          <span class="panel-ev__d">Спросить человека</span>
+          <span class="panel-ev__t"><a href="tel:88001005044">8 800 100-50-44</a></span>
+          <p>Контакт-центр, звонок по России бесплатный. Приёмная комиссия: <a href="tel:+73433754474">+7 (343) 375-44-74</a>, пн–пт 10:00–17:00.</p>
+          <a class="panel-ev__g" href="pomoshch.html#vopros">Написать через форму</a>
+        </div>
+        <p class="proto">Это прототип: помощник отвечает на заготовленные вопросы. В рабочей версии ответ строится по страницам сайта, а источник и дата берутся оттуда же.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="data/programs.js"></script>
+<script src="data/admission.js"></script>
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+<script>
+/* Сценарии построены на данных, которые уже есть на страницах прототипа и на urfu.ru.
+   Даты «обновлено» — реальные даты изменения исходных страниц на urfu.ru. */
+const UI = {
+  ru: {
+    who: ['ИИ-помощник', 'отвечает по данным сайта, это не человек'], human: 'Спросить человека', label: 'Ваш вопрос', ph: 'Ваш вопрос', send: 'Спросить',
+    note: 'ИИ может ошибаться. Даты и условия проверяйте по источнику.', src: 'Источник', notHelp: 'Не помогло? Спросить человека',
+    none: 'Я не нашёл ответа на сайте и не буду гадать. Лучше спросить человека.',
+    humanMsg: '<p>Позвоните в контакт-центр: <a href="tel:88001005044">8 800 100-50-44</a>, звонок по России бесплатный. Приёмная комиссия: <a href="tel:+73433754474">+7 (343) 375-44-74</a>, пн–пт 10:00–17:00.</p><p>Можно написать через <a href="pomoshch.html#vopros">форму вопроса</a>.</p>',
+    typing: 'Помощник печатает',
+  },
+  en: {
+    who: ['AI assistant', 'answers from the website, not a person'], human: 'Ask a person', label: 'Your question', ph: 'Your question', send: 'Ask',
+    note: 'AI can make mistakes. Check dates and requirements at the source.', src: 'Source', notHelp: 'Did not help? Ask a person',
+    none: 'I could not find this on the website and will not guess. Please ask a person.',
+    humanMsg: '<p>International Admission: <a href="tel:+73433754627">+7 (343) 375-46-27</a>, <a href="mailto:admission@urfu.ru">admission@urfu.ru</a>.</p><p>International Student Support Center: <a href="tel:+73433754193">+7 (343) 375-41-93</a>, <a href="mailto:adaptation@urfu.ru">adaptation@urfu.ru</a>.</p>',
+    typing: 'The assistant is typing',
+  },
+};
+
+const QA = {
+  cal: { q: 'Когда подавать документы на бакалавриат?', keys: /когда|срок|календар|дедлайн|до какого/i,
+    a: '<p>По календарю кампании 2026 года приём документов на бакалавриат идёт с 20 июня.</p><p>На бюджет: приоритетный этап до 25 июля (согласие на зачисление до 1 августа, 14:00; приказ 3 августа), основной и дополнительный до 15 июля. На платные места по результатам ЕГЭ документы принимают до 20 августа.</p><p>Даты набора 2027 года приёмная комиссия опубликует до начала приёма.</p>',
+    src: ['Календарь приёма', 'postuplenie.html#kalendar', 'обновлено 22 июня 2026'] },
+  balls: { q: 'Куда я пройду по своим баллам ЕГЭ?', keys: /балл|егэ|пройд|шанс|куда поступ|подойд/i,
+    a: '<p>Ваши шансы я не знаю: проходные баллы меняются каждый год, поэтому точно ответить не могу.</p><p>Зато можно отобрать программы по сданным предметам: в каталоге отметьте предметы ЕГЭ, и он покажет программы, на которые с ними можно поступать. Оценить шансы лучше с приёмной комиссией.</p>',
+    src: ['Каталог программ', 'katalog.html', 'набор 2026 года'] },
+  gos: { q: 'Как подать документы через Госуслуги?', keys: /госуслуг|онлайн|как подать|подать документ|заявлени/i,
+    a: '<p>Заявление заполняет сам абитуриент на портале Госуслуг, нужна подтверждённая учётная запись. Заявления на бакалавриат, специалитет, магистратуру и второе высшее принимают с 20 июня.</p><p>У университета есть пошаговая инструкция. Документы можно подать и лично.</p>',
+    src: ['Как поступить через Госуслуги', 'postuplenie.html#bak', 'обновлено 18 июня 2025'] },
+  sched: { q: 'Где посмотреть расписание занятий?', keys: /расписан|занят|пар[ыа]?\b/i,
+    a: '<p>Расписание занятий в разделе «Студенту». Там можно найти свою группу или преподавателя.</p>',
+    src: ['Студенту: расписание занятий', 'studentu.html', 'обновлено 5 декабря 2025'] },
+  brs: { q: 'Где посмотреть баллы БРС?', keys: /брс|рейтинг|оценк/i,
+    a: '<p>Текущий рейтинг и оценки собраны в разделе «Баллы БРС».</p>',
+    src: ['Баллы БРС', 'studentu.html', 'обновлено 30 июля 2026'] },
+  dorm: { q: 'Как заселиться в общежитие?', keys: /общежит|поселен|заселен|прожив/i,
+    a: '<p>Первокурсников 2026 года селят жилищные комиссии институтов в два этапа: 12–23 октября и 26 октября – 6 ноября.</p><p>Порядок такой: ордер и договор в комиссии своего института, медосмотр в МСЧ УрФУ, оплата, регистрация и заселение. Адреса всех общежитий и группы комиссий — на странице «Кампус и общежития».</p>',
+    src: ['Кампус и общежития', 'kampus.html#obshchezhitiya', 'по странице «Поселение студентов» на urfu.ru'] },
+  apply: { q: 'How do I apply as an international student?', keys: /appl|admission|document|deadline|when|how/i,
+    a: '<p>Bachelor’s applications are open from June 20 to August 20. You need a scan of your passport with a notarized Russian translation, your school diploma or equivalent with a notarized translation, and a full transcript of grades.</p><p>Documents issued abroad need legalization or an apostille. Master’s applicants take an online interview with the program administrator.</p>',
+    src: ['Admission & Arrival', 'postuplenie.html#intl', 'updated 2 September 2026'] },
+  lang: { q: 'Do I need to speak Russian?', keys: /russian|language|speak|english|b1|level/i,
+    a: '<p>For bachelor’s programs there are two entrance tests in major subjects and a Russian language test; the required level is B1–B2. A certificate from a Russian language course, from UrFU Russian Language School or another authorized institution, can replace the test.</p><p>For master’s programs the entrance exam is an online interview, and the required level of the language of instruction, Russian or English, is also B1–B2.</p>',
+    src: ['Admission & Arrival', 'postuplenie.html#intl', 'updated 2 September 2026'] },
+  help: { q: 'Where can I get help after I arrive?', keys: /help|support|arriv|adapt|contact|accommodat/i,
+    a: '<p>The International Student Support Center helps newcomers adapt: <a href="tel:+73433754193">+7 (343) 375-41-93</a>, <a href="mailto:adaptation@urfu.ru">adaptation@urfu.ru</a>.</p><p>Admission questions go to International Admission: <a href="tel:+73433754627">+7 (343) 375-46-27</a>, <a href="mailto:admission@urfu.ru">admission@urfu.ru</a>.</p>',
+    src: ['Contact us', 'pomoshch.html', 'updated 2 September 2026'] },
+};
+
+const MODES = {
+  abit: { lang: 'ru', ids: ['cal', 'balls', 'gos'], hello: 'Здравствуйте. Отвечаю на вопросы о поступлении по данным сайта: сроки, документы, программы.' },
+  student: { lang: 'ru', ids: ['sched', 'brs', 'dorm'], hello: 'Здравствуйте. Подскажу, где найти расписание, баллы БРС, общежитие и другие сервисы для студентов.' },
+  intl: { lang: 'en', ids: ['apply', 'lang', 'help'], hello: 'Hello. I answer questions about admission for international applicants, using the information on this website.' },
+};
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let mode = 'abit';
+const t = () => UI[MODES[mode].lang];
+
+function say(html, who) {
+  const log = $('#log');
+  const el = document.createElement('div');
+  el.className = 'msg msg--' + who;
+  el.innerHTML = who === 'me' ? esc(html) : `<i class="dot" aria-hidden="true"></i><div class="msg__text">${html}</div>`;
+  log.append(el);
+  log.scrollTop = log.scrollHeight;
+  return el;
+}
+
+/* Ответ помощника: короткая пауза, текст, источник с датой и «спросить человека» */
+function answer(html, src) {
+  const wait = say(`<span class="typing" role="status" aria-label="${t().typing}">•••</span>`, 'bot');
+  setTimeout(() => {
+    const u = t();
+    wait.querySelector('.msg__text').innerHTML = html + (src
+      ? `<div class="msg__src">${u.src}: <a href="${src[1]}">${src[0]}</a>, ${src[2]}<button type="button" data-human>${u.notHelp}</button></div>` : '');
+    $('#log').scrollTop = $('#log').scrollHeight;
+  }, calm ? 0 : 650);
+}
+
+/* Вопрос о конкретной программе: «сколько стоит прикладная информатика», «какие экзамены на химию» */
+const ADM = window.ADMISSION || {};
+const stem6 = (w) => w.slice(0, Math.max(4, Math.min(6, w.length - 2)));
+function programAnswer(text) {
+  if (!/стоим|цен|сколько|плат|мест|бюджет|экзамен|испытан|предмет|балл|егэ|сдава/i.test(text)) return null;
+  const words = normText(text).split(/[^а-я0-9]+/).filter(Boolean);
+  const has = (w) => words.some((x) => x.startsWith(stem6(w)));
+  const cands = PROGRAMS.filter((p) => ADM[p.id]).filter((p) => {
+    const ws = normText(p.name).split(/[^а-я]+/).filter((w) => w.length > 3);
+    return ws.length && ws.every(has);
+  }).sort((a, b) => b.name.length - a.name.length || !!ADM[b.id].p - !!ADM[a.id].p);
+  const p = cands[0]; if (!p) return null;
+  const a = ADM[p.id], b = a.b || [0, 0, 0, 0, 0, 0], bud = b[0] + b[2] + b[4], paid = b[1] + b[3] + b[5];
+  const rub = (n) => n.toLocaleString('ru-RU') + ' ₽';
+  const ex = a.e.map((prio) => prio.length === 1 ? `${prio[0][0]} от ${prio[0][1]}` : `на выбор ${prio.map(([x, m]) => `${x} от ${m}`).join(' или ')}`).join('; ');
+  let h = `<p>«${p.name}» (${p.code}, ${p.levelLabel.toLowerCase()}): ${bud ? `${bud} ${plural(bud, ['бюджетное место', 'бюджетных места', 'бюджетных мест'])}` : 'бюджетных мест нет'}${paid ? ` и ${paid} ${plural(paid, ['платное', 'платных', 'платных'])}` : ''} в наборе 2026 года.</p>`;
+  if (a.p) h += `<p>Стоимость первого курса — ${rub(a.p[0])} в год. При сумме баллов от ${a.p[1]} — ${rub(a.p[2])}.</p>`;
+  h += `<p>Вступительные испытания: ${ex}.</p>`;
+  if (cands.length > 1 && cands[1].name !== p.name) h += `<p>Похожие названия есть и у других программ, их ищите в <a href="katalog.html?q=${encodeURIComponent(p.name)}">каталоге</a>.</p>`;
+  return [h, [p.name, `programma.html?id=${p.id}#postuplenie-2026`, 'план приёма и приказ о стоимости 2026']];
+}
+
+function ask(text) {
+  text = text.trim();
+  if (!text) return;
+  say(text, 'me');
+  const pa = MODES[mode].lang === 'ru' && programAnswer(text);
+  if (pa) { answer(pa[0], pa[1]); return; }
+  const own = MODES[mode].ids, rest = Object.keys(QA).filter((k) => !own.includes(k));
+  const hit = [...own, ...rest].find((k) => QA[k].keys.test(text));
+  if (hit) answer(QA[hit].a, QA[hit].src);
+  else answer(`<p>${t().none}</p>${t().humanMsg}`);
+}
+
+function human() { say(t().human, 'me'); answer(t().humanMsg); }
+
+function setMode(m, quiet) {
+  mode = m;
+  const u = t(), lang = MODES[m].lang;
+  $('#chat').lang = lang;
+  document.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.mode === m));
+  $('[data-t="who"]').innerHTML = `${u.who[0]} <span>— ${u.who[1]}</span>`;
+  ['human', 'send', 'note', 'label'].forEach((k) => { document.querySelector(`[data-t="${k}"]`).textContent = u[k]; });
+  $('#q').placeholder = u.ph;
+  $('#ask').innerHTML = MODES[m].ids.map((id) => `<button class="chip" type="button" data-q="${id}">${QA[id].q}</button>`).join('');
+  $('#log').innerHTML = '';
+  say(MODES[m].hello, 'bot');
+  if (!quiet) $('#q').focus();
+}
+
+document.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode)));
+$('#ask').addEventListener('click', (e) => { const b = e.target.closest('[data-q]'); if (b) ask(QA[b.dataset.q].q); });
+$('#form').addEventListener('submit', (e) => { e.preventDefault(); const q = $('#q'); ask(q.value); q.value = ''; });
+document.addEventListener('click', (e) => { if (e.target.closest('[data-human]')) human(); });
+
+/* Вопрос может прийти из строки поиска: pomoshnik.html?q=... */
+const q0 = new URLSearchParams(location.search).get('q');
+setMode(q0 && /^[^а-яё]*[a-z]/i.test(q0) ? 'intl' : 'abit', true);
+if (q0) ask(q0);
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Страница не найдена: УрФУ</title>
+<meta name="description" content="Такой страницы нет. Найдите нужное через поиск или начните с главных разделов сайта УрФУ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.code { font-family: var(--display); font-size: 16px; font-weight: 500; letter-spacing: .02em; color: var(--ink-2); }
+.lost { display: flex; align-items: center; gap: 12px; margin-top: 32px; max-width: 720px; }
+.lost .find3 { flex: 1; min-width: 0; }
+.lost .btn { min-height: 64px; padding: 0 28px; }
+.help-row { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--ink-2); max-width: 60ch; }
+.help-row a { color: var(--blue); font-weight: 600; }
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Страница не найдена: УрФУ">
+<meta property="og:description" content="Такой страницы нет. Найдите нужное через поиск или начните с главных разделов сайта УрФУ.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Страница не найдена</li></ol></nav>
+      <p class="code" style="margin-top:28px">Ошибка 404</p>
+      <h1 class="t-h1" id="h1" style="margin-top:8px">Такой страницы нет</h1>
+      <p class="lead">Возможно, ссылка устарела или в адресе опечатка. Найдите нужное через поиск или начните с главных разделов.</p>
+      <form class="lost" role="search" action="poisk.html">
+        <div class="find3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="sr" for="q">Что вы искали</label>
+          <input class="input" id="q" name="q" type="search" placeholder="Что вы искали?" autocomplete="off">
+        </div>
+        <button class="btn btn--blue" type="submit">Найти</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px" aria-labelledby="where-h">
+    <div class="wrap">
+      <h2 class="t-h3" id="where-h" style="margin-bottom:20px">Куда дальше</h2>
+      <div class="hot">
+        <a class="hot__main" href="index.html"><b>На главную</b><span>Выбор аудитории, поиск и частые задачи</span></a>
+        <a href="postuplenie.html"><b>Поступление</b><span>Шаги, сроки и документы</span></a>
+        <a href="katalog.html"><b>Каталог программ</b><span>378 программ: поиск и фильтры</span></a>
+        <a href="studentu.html"><b>Студенту</b><span>Расписание, справки, стипендии</span></a>
+        <a href="nauka.html"><b>Наука</b><span>Лаборатории, гранты, публикации</span></a>
+        <a href="universitet.html"><b>Университет</b><span>История, кампус, рейтинги</span></a>
+        <a href="pomoshch.html"><b>Помощь и контакты</b><span>Телефоны и форма вопроса</span></a>
+      </div>
+      <p class="help-row">Искали конкретный документ или сервис и не нашли? <a href="pomoshnik.html">Спросите ИИ-помощника</a> или позвоните в контакт-центр: <a href="tel:88001005044">8 800 100-50-44</a>, звонок по России бесплатный.</p>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="js/site.js"></script>
+</body>
+</html>

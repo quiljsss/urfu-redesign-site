@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Личный кабинет: УрФУ</title>
+<meta name="description" content="Единый вход в личный кабинет УрФУ: сервисы для абитуриента, студента, сотрудника и партнёра в одном месте.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+/* Вход: форма слева, фото справа */
+.login { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 80px; align-items: center; }
+.login .lead { margin-top: 16px; }
+.login .levels { margin-top: 32px; }
+.login form { margin-top: 32px; display: grid; gap: 20px; max-width: 480px; }
+.login .row { display: flex; flex-wrap: wrap; gap: 12px; }
+.login .btn { min-height: 52px; }
+.login__alt { margin-top: 20px; font-size: 15px; color: var(--ink-2); }
+.login__alt a { color: var(--blue); font-weight: 600; }
+.login img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); }
+
+/* Кабинет: сервисы и события */
+.top { display: flex; justify-content: space-between; align-items: end; gap: 16px 32px; flex-wrap: wrap; }
+.top .lead { margin-top: 12px; }
+.demo { margin-top: 28px; }
+.board { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 72px; align-items: start; }
+.board .hot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.board h2 { margin-bottom: 20px; }
+.board__side .agenda { margin-top: 0; }
+.board__side .panel-ev { margin-top: 40px; }
+.panel-ev p { font-size: 15px; color: rgba(255,255,255,.85); }
+
+@media (max-width: 1100px) {
+  .login { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .login img { aspect-ratio: 3 / 2; }
+  .board { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+}
+@media (max-width: 640px) {
+  .board .hot { grid-template-columns: minmax(0, 1fr); }
+  .login .row .btn { flex: 1 1 100%; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Личный кабинет: УрФУ">
+<meta property="og:description" content="Единый вход в личный кабинет УрФУ: сервисы для абитуриента, студента, сотрудника и партнёра в одном месте.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" data-road="none" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Личный кабинет</li></ol></nav>
+
+      <!-- Вход -->
+      <div class="login" id="login" style="margin-top:40px">
+        <div>
+          <h1 class="t-h1" id="h1">Личный кабинет</h1>
+          <p class="lead">Один вход для всех сервисов университета: учёба, документы, оплата и справки.</p>
+          <div class="levels" role="group" aria-label="Кто вы">
+            <button class="chip" type="button" data-role="abit">Абитуриент</button>
+            <button class="chip" type="button" data-role="student">Студент</button>
+            <button class="chip" type="button" data-role="staff">Сотрудник</button>
+            <button class="chip" type="button" data-role="partner">Партнёр</button>
+          </div>
+          <form id="form" novalidate>
+            <div><label class="label" for="login-i">Логин или почта</label><input class="input" id="login-i" autocomplete="username" required></div>
+            <div><label class="label" for="pass">Пароль</label><input class="input" id="pass" type="password" autocomplete="current-password" required></div>
+            <p class="note" id="err" role="alert" hidden>Введите логин и пароль.</p>
+            <div class="row">
+              <button class="btn btn--blue" type="submit">Войти</button>
+              <button class="btn btn--ghost" type="button" data-demo>Войти через Госуслуги</button>
+            </div>
+          </form>
+          <p class="login__alt">Забыли пароль или не можете войти? <a href="pomoshch.html">Напишите в поддержку</a> или спросите <a href="pomoshnik.html">ИИ-помощника</a>.</p>
+        </div>
+        <img decoding="async" src="img/photo/campus-sign.jpg" alt="Корпус УрФУ с надписью «Уральский федеральный университет»" width="1280" height="853">
+      </div>
+
+      <!-- Кабинет -->
+      <div id="room" hidden style="margin-top:40px">
+        <div class="top">
+          <div>
+            <h2 class="t-h1" id="room-h" tabindex="-1"></h2>
+            <p class="lead" data-lead></p>
+          </div>
+          <button class="btn btn--ghost" type="button" id="out">Выйти</button>
+        </div>
+        <p class="note demo">Демонстрационный вход: данные нигде не сохраняются. Услуги ниже те же, что на главной для этой аудитории.</p>
+        <div class="board">
+          <section aria-labelledby="svc-h">
+            <h2 class="t-h3" id="svc-h">Мои сервисы</h2>
+            <div class="hot" data-svc></div>
+          </section>
+          <div class="board__side">
+            <h2 class="t-h3">Ближайшее</h2>
+            <ul class="agenda">
+              <li><time>до 1 ноября</time><a href="https://urfu.ru/ru/science/grants/premija-gubernatora-sverdlovskoi-oblasti-dlja-molodykh-uchenykh/">Премия губернатора для молодых учёных</a><span>Приём заявок</span></li>
+              <li><time>10 ноября</time><a href="https://urfu.ru/ru/students/olympic/profi/">Олимпиада «Я — профессионал»</a><span>Последний день регистрации</span></li>
+              <li><time>12–14 ноября</time><a href="https://rrfp.ru/">Российские регионы в фокусе перемен</a><span>Международная конференция</span></li>
+            </ul>
+            <div class="panel-ev">
+              <span class="panel-ev__d">Нужна помощь</span>
+              <span class="panel-ev__t">Спросите ИИ-помощника</span>
+              <p>Ответ со ссылкой на источник. Если не поможет, позовёт человека.</p>
+              <a class="panel-ev__g" href="pomoshnik.html">Открыть диалог</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="js/site.js"></script>
+<script>
+const $ = (s) => document.querySelector(s);
+const ROLE = {
+  abit: ['Кабинет абитуриента', 'Заявления, списки и вопросы приёмной комиссии.'],
+  student: ['Кабинет студента', 'Учёба, документы и жизнь в университете.'],
+  staff: ['Кабинет сотрудника', 'Документы, наука и цифровые сервисы.'],
+  partner: ['Кабинет партнёра', 'Сотрудничество, проекты и выпускники.'],
+};
+let role = new URLSearchParams(location.search).get('role');
+if (!ROLE[role]) role = 'student';
+
+function pick(r) {
+  role = r;
+  document.querySelectorAll('[data-role]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.role === r));
+}
+
+/* Сервисы те же, что на главной для этой аудитории; сам «Личный кабинет» в списке не нужен */
+function show() {
+  const [h, lead] = ROLE[role];
+  $('#room-h').textContent = h;
+  $('[data-lead]').textContent = lead;
+  $('[data-svc]').innerHTML = TASKS[role].filter(([t]) => t !== 'Личный кабинет')
+    .map(([t, m, h], i) => `<a${i ? '' : ' class="hot__main"'} href="${h}"><b>${t}</b><span>${m}</span></a>`).join('');
+  $('#login').hidden = true;
+  $('#room').hidden = false;
+  document.title = `${h}: УрФУ`;
+  $('#room-h').focus();
+}
+
+document.querySelectorAll('[data-role]').forEach((b) => b.addEventListener('click', () => pick(b.dataset.role)));
+$('#form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const ok = $('#login-i').value.trim() && $('#pass').value;
+  $('#err').hidden = !!ok;
+  if (ok) { show(); $('#form').reset(); }
+});
+document.querySelector('[data-demo]').addEventListener('click', show);
+$('#out').addEventListener('click', () => {
+  $('#room').hidden = true; $('#login').hidden = false; document.title = 'Личный кабинет: УрФУ';
+  $('#login-i').focus();
+});
+pick(role);
+</script>
+</body>
+</html>

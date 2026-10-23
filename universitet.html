@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Университет: УрФУ</title>
+<meta name="description" content="Уральский федеральный университет: основан в 1920 году, 50 000 студентов, 13 институтов. История, кампус, рейтинги, руководство и официальные документы.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.us { scroll-margin-top: calc(var(--header-h) + 24px); }
+.us + .us { margin-top: 112px; }
+.us > h2 { margin-bottom: 36px; }
+.src { margin-top: 24px; font-size: 14px; color: var(--ink-2); }
+
+/* Кампус: одно большое фото и два малых рядом */
+/* Главный корпус широкой полосой: кадр с надписью на фронтоне, без людей; ниже два кадра кампуса */
+.camp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 24px; }
+.camp a { display: flex; flex-direction: column; text-decoration: none; }
+.camp img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.camp__big { grid-column: 1 / -1; }
+.camp__big img { aspect-ratio: 3 / 1; }
+.camp b { margin-top: 14px; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.camp__big b { font-size: 28px; }
+.camp span { color: var(--ink-2); }
+.camp a:hover b { color: var(--blue); }
+.camp + .facts { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
+
+/* Крупные цифры: три в ряд, на телефоне два */
+.us .facts--big { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* Ректор */
+.head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 72px; align-items: start; }
+.say { font-size: clamp(22px, 2.2vw, 30px); line-height: 1.35; font-weight: 500; letter-spacing: -0.015em; }
+.who-is { margin-top: 24px; font-weight: 600; }
+.who-is span { display: block; font-weight: 400; color: var(--ink-2); }
+.head .rows { margin-top: 0; }
+
+@media (max-width: 1100px) {
+  .head { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+}
+@media (max-width: 900px) {
+  .camp { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .camp__big img { aspect-ratio: 2 / 1; }
+}
+@media (max-width: 640px) {
+  .us + .us { margin-top: 72px; }
+  .us > h2 { margin-bottom: 24px; }
+  .camp { gap: 24px 12px; }
+  .camp b, .camp__big b { font-size: 17px; }
+  .us .facts--big { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+  .us .facts--big dd { font-size: 26px; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Университет: УрФУ">
+<meta property="og:description" content="Уральский федеральный университет: основан в 1920 году, 50 000 студентов, 13 институтов. История, кампус, рейтинги, руководство и официальные документы.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Университет">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Университет</li></ol></nav>
+      <h1 class="t-h1" id="h1">Университет</h1>
+      <p class="lead">Основан в 1920 году. Сегодня это 50&nbsp;000 студентов, 13 институтов и 15 учебных корпусов в Екатеринбурге.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px" aria-label="Содержание страницы">
+    <div class="wrap">
+      <div class="cats">
+        <nav class="catnav" aria-label="Разделы страницы" data-nav>
+          <a href="#cifry">В цифрах</a>
+          <a href="#istoriya">История</a>
+          <a href="#kampus">Кампус</a>
+          <a href="#reitingi">Рейтинги</a>
+          <a href="#rukovodstvo">Руководство</a>
+          <a href="#otkrytost">Открытость</a>
+        </nav>
+
+        <div>
+          <section class="us" id="cifry" aria-labelledby="c-h">
+            <h2 class="t-h2" id="c-h">Университет в цифрах</h2>
+            <dl class="facts facts--big">
+              <div><dt>основан</dt><dd>1920</dd></div>
+              <div><dt>студентов</dt><dd>50&nbsp;000</dd></div>
+              <div><dt>научно-педагогических работников</dt><dd>4&nbsp;400</dd></div>
+              <div><dt>институтов</dt><dd>13</dd></div>
+              <div><dt>научно-исследовательских лабораторий</dt><dd>164</dd></div>
+              <div><dt>бюджетных мест на 2026 год</dt><dd>9&nbsp;855</dd></div>
+            </dl>
+            <p class="src">Данные раздела «Об Уральском федеральном в цифрах» на urfu.ru.</p>
+          </section>
+
+          <section class="us" id="istoriya" aria-labelledby="h-h">
+            <h2 class="t-h2" id="h-h">История</h2>
+            <ol class="route" style="--done: 75%">
+              <li class="is-done"><h3>19 октября 1920</h3><p>Декрет об учреждении Уральского государственного университета: университет европейского типа из шести институтов.</p><a href="#">Основные даты</a></li>
+              <li class="is-done"><h3>8 января 1921</h3><p>Открытие. На одиннадцати факультетах учатся 2&nbsp;501 студент, работают 293 педагога.</p><a href="#">Как всё начиналось</a></li>
+              <li class="is-done"><h3>1924</h3><p>Первый выпуск инженеров: шесть специалистов.</p><a href="#">Выпускники</a></li>
+              <li class="is-done"><h3>2020</h3><p>Университет отметил столетие. Основные даты по десятилетиям собраны в истории.</p><a href="#">Все десятилетия</a></li>
+            </ol>
+            <ul class="rows" style="margin-top:40px">
+              <li><a href="#">Имя Ельцина <span>Первый Президент России учился в Уральском политехническом институте</span></a></li>
+              <li><a href="#">Музейно-выставочный комплекс <span>Запись на экскурсию</span></a></li>
+              <li><a href="#">Онлайн-музей <span>История университета в документах</span></a></li>
+            </ul>
+          </section>
+
+          <section class="us" id="kampus" aria-labelledby="k-h">
+            <div class="head-row" style="margin-bottom:36px"><h2 class="t-h2" id="k-h">Кампус</h2><a href="kampus.html">Где аудитория и общежития</a></div>
+            <div class="camp">
+              <a class="camp__big" href="kampus.html?q=ГУК#auditoriya"><img decoding="async" src="img/photo/guk-facade.jpg" alt="Фронтон главного учебного корпуса с надписью «Уральский политехнический институт имени С. М. Кирова»" width="1200" height="400" loading="lazy"><b>Главный учебный корпус</b><span>ул. Мира, 19</span></a>
+              <a href="#"><img decoding="async" src="img/photo/campus-building.jpg" alt="Корпус нового кампуса" width="1280" height="853" loading="lazy"><b>Новый кампус</b><span>Учебные корпуса и общежития</span></a>
+              <a href="#"><img decoding="async" src="img/photo/campus-atrium.jpg" alt="Атриум учебного корпуса" width="1280" height="853" loading="lazy"><b>Виртуальные туры</b><span>Корпуса, лаборатории, спорт</span></a>
+            </div>
+            <dl class="facts facts--big">
+              <div><dt>учебных корпусов</dt><dd>15</dd></div>
+              <div><dt>общежитий, в них более 13&nbsp;800 мест</dt><dd>18</dd></div>
+              <div><dt>спортивных объектов</dt><dd>20</dd></div>
+              <div><dt>мультимедийных аудиторий</dt><dd>438</dd></div>
+            </dl>
+          </section>
+
+          <section class="us" id="reitingi" aria-labelledby="r-h">
+            <h2 class="t-h2" id="r-h">Рейтинги</h2>
+            <dl class="facts facts--big">
+              <div><dt>место в Национальном рейтинге университетов, общий зачёт</dt><dd>9</dd></div>
+              <div><dt>место в рейтинге RAEX-100, 2024</dt><dd>11</dd></div>
+              <div><dt>место в рейтинге Forbes «100 лучших российских вузов», 2025</dt><dd>14</dd></div>
+            </dl>
+            <p class="lead" style="margin-top:24px">В международных рейтингах: QS World University Rankings — 504 место, Times Higher Education — 801–1000, Шанхайский рейтинг ARWU — 701–800, в нём всего четыре вуза России.</p>
+            <p class="src">Данные раздела «Позиции в рейтингах» на urfu.ru.</p>
+          </section>
+
+          <section class="us" id="rukovodstvo" aria-labelledby="g-h">
+            <h2 class="t-h2" id="g-h">Руководство и структура</h2>
+            <div class="head">
+              <div>
+                <p class="say">«Университет делают люди. Энергия талантливых студентов, опыт преподавателей, творческий подход научных сотрудников, поддержка выпускников и партнёров ежедневно вносят вклад в развитие вуза, края, страны и мира».</p>
+                <p class="who-is"><i class="dot" aria-hidden="true"></i>Илья Николаевич Обабков<span>Ректор</span></p>
+              </div>
+              <ul class="rows">
+                <li><a href="#">Ректорат <span>Руководство</span></a></li>
+                <li><a href="#">Учёный совет <span>Заседания и решения</span></a></li>
+                <li><a href="#">Наблюдательный совет <span>Состав</span></a></li>
+                <li><a href="#">Аттестационный совет <span>Решения</span></a></li>
+                <li><a href="#">Структура и органы управления <span>Схема</span></a></li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="us" id="otkrytost" aria-labelledby="o-h">
+            <div class="head-row" style="margin-bottom:36px"><h2 class="t-h2" id="o-h">Документы и сведения</h2><a href="dokumenty.html">Все разделы</a></div>
+            <ul class="linklist">
+              <li><a href="#">Сведения об образовательной организации</a></li>
+              <li><a href="#">Официальные документы</a></li>
+              <li><a href="#">Реквизиты</a></li>
+              <li><a href="#">Программа развития</a></li>
+              <li><a href="#">Политика в области качества</a></li>
+              <li><a href="#">Независимая оценка качества образования</a></li>
+              <li><a href="#">Противодействие коррупции</a></li>
+              <li><a href="#">Закупки</a></li>
+              <li><a href="#">Обращения граждан</a></li>
+            </ul>
+            <div class="head-row" style="margin-top:56px"><span></span><a href="pomoshch.html">Помощь и контакты</a></div>
+            <dl class="facts facts--text" style="margin-top:16px">
+              <div><dt>Контакт-центр, звонок по России бесплатный</dt><dd>8 800 100-50-44</dd></div>
+              <div><dt>Приёмная комиссия</dt><dd>+7 (343) 375-44-74</dd></div>
+              <div><dt>Пресс-служба</dt><dd>news@urfu.ru</dd></div>
+              <div><dt>Адрес</dt><dd>Екатеринбург, ул. Мира, 19</dd></div>
+            </dl>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="js/site.js"></script>
+</body>
+</html>

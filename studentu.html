@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Студенту: УрФУ</title>
+<meta name="description" content="Всё для студента УрФУ по задачам: расписание, личный кабинет, баллы, стипендии, справки, общежитие, практика, спорт и творчество.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+
+
+.life { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.life a { text-decoration: none; }
+.life img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.life b { display: block; margin-top: 14px; font-size: 20px; font-weight: 600; }
+.life span { color: var(--ink-2); }
+.life a:hover b { color: var(--blue); }
+
+@media (max-width: 1100px) {
+}
+@media (max-width: 640px) {
+  .life { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .life b { font-size: 17px; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Студенту: УрФУ">
+<meta property="og:description" content="Всё для студента УрФУ по задачам: расписание, личный кабинет, баллы, стипендии, справки, общежитие, практика, спорт и творчество.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Студенту">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Студенту</li></ol></nav>
+      <div class="sh" style="margin-top:28px">
+        <div>
+          <h1 class="t-h1" id="h1">Студенту</h1>
+          <p class="lead">Всё, что нужно в учёбе и в жизни университета, собрано по задачам. Начните с поиска или выберите нужное ниже.</p>
+        </div>
+        <div class="find3" role="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="sr" for="q">Найти задачу или сервис</label>
+          <input class="input" id="q" type="search" placeholder="Справка, стипендия" autocomplete="off">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px" aria-labelledby="hot-h">
+    <div class="wrap">
+      <h2 class="t-h3" id="hot-h" style="margin-bottom:20px">Чаще всего</h2>
+      <div class="hot">
+        <a class="hot__main" href="#"><b>Расписание занятий</b><span>Найти свою группу или преподавателя</span></a>
+        <a href="#"><b>Личный кабинет</b><span>Учёба, документы, портфолио, сервисы</span></a>
+        <a href="#"><b>Баллы БРС</b><span>Текущий рейтинг и оценки</span></a>
+        <a href="#"><b>Стипендии</b><span>Виды стипендий и как их получить</span></a>
+        <a href="#"><b>Справки и документы</b><span>Заказать и посмотреть статус</span></a>
+        <a href="#"><b>Поселение в общежитие</b><span>Кампус, заселение, правила</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--grey" aria-labelledby="all-h">
+    <div class="wrap">
+      <h2 class="t-h2" id="all-h" style="margin-bottom:40px">Все задачи</h2>
+      <div class="cats">
+        <nav class="catnav" aria-label="Разделы" data-nav></nav>
+        <div data-groups></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="life-h">
+    <div class="wrap">
+      <div class="head-row" style="margin-bottom:32px"><h2 class="t-h2" id="life-h">Жизнь в УрФУ</h2><a href="#">Все возможности</a></div>
+      <ul class="life">
+        <li><a href="#"><img decoding="async" src="img/photo/sport-football.jpg" alt="Студенты играют в футбол" width="1280" height="853" loading="lazy"><b>Спорт</b><span>Секции и сборные</span></a></li>
+        <li><a href="#"><img decoding="async" src="img/photo/life-ball.jpg" alt="Студенты в исторических костюмах у главного учебного корпуса" width="1280" height="853" loading="lazy"><b>Творчество</b><span>Клубы и студии</span></a></li>
+        <li><a href="#"><img decoding="async" src="img/photo/life-winter.jpg" alt="Студенты играют в снегу" width="1280" height="853" loading="lazy"><b>Студенческие объединения</b><span>Союз студентов, волонтёрство</span></a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="js/site.js"></script>
+<script>
+/* Задачи сгруппированы по задачам студента, а не по подразделениям. Названия взяты из меню «Студентам» на urfu.ru и из каталога сервисов личного кабинета. */
+const GROUPS = [
+  ['Учёба', ['Расписание занятий', 'Баллы БРС', 'Личный кабинет', 'Образовательные программы', 'Зональная научная библиотека', 'Организация и прохождение практики', 'Перевод и восстановление', 'Академическая мобильность', 'Поступление в магистратуру', 'Молодёжная наука', 'Олимпиады и конкурсы', 'Wi-Fi сети УрФУ']],
+  ['Документы и деньги', ['Справки и документы', 'Документы для студентов', 'Стипендии и стипендиаты', 'Оплата обучения', 'Меры поддержки', 'Социальная поддержка', 'Воинский учёт и отсрочки от призыва', 'Особые права участников СВО и их детей', 'Услуги издательско-полиграфического центра']],
+  ['Кампус и быт', ['Поселение в общежитие', 'Питание', 'Здоровье', 'Детский сад', 'Семейным студентам', 'Инклюзивное образование', 'Горячая линия для студентов']],
+  ['Студенческая жизнь', ['Спорт', 'Творчество', 'Союз студентов', 'Объединённый совет обучающихся', 'Волонтёрство', 'Точка кипения УрФУ', 'Студенческий центр', 'Коворкинги', 'Студент года УрФУ', 'Рейтинг внеучебной деятельности']],
+  ['Работа и карьера', ['Центр карьеры и трудоустройства', 'Старт карьеры на госслужбе', 'Служба по контракту', 'Разрешение на работу для иностранных студентов', 'Автошкола']],
+];
+initGroups(GROUPS);
+</script>
+</body>
+</html>

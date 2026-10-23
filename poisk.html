@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Поиск: УрФУ</title>
+<meta name="description" content="Поиск по сайту УрФУ: разделы, документы, сервисы и 378 программ. Можно спросить обычными словами, ответит ИИ-помощник.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.find3 .input { border-radius: 999px; }
+.res { max-width: 900px; }
+.res__meta { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+.res__count { font-size: 18px; font-weight: 600; }
+.res__filter { margin-top: 20px; }
+
+.hit { border-top: 1px solid var(--line); }
+.hit:first-child { border-top: 2px solid var(--ink); }
+.hit a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline; padding: 18px 0 20px; text-decoration: none; }
+.hit b { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+.hit a:hover b { color: var(--blue); }
+.hit span { color: var(--ink-2); font-size: 15px; }
+.hit .tag { align-self: start; justify-self: end; }
+.hit span.m { grid-column: 1; }
+
+.grp-h { margin: 40px 0 0; font-size: 14px; font-weight: 600; letter-spacing: .02em; color: var(--ink-2); }
+.more { display: inline-block; margin-top: 20px; font-weight: 600; color: var(--blue); }
+
+.bot-line { margin: 0 0 32px; }
+.empty h2 { margin-bottom: 12px; }
+.empty p { color: var(--ink-2); max-width: 54ch; }
+.empty .popular { margin-top: 20px; }
+.help-row { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--ink-2); }
+.help-row a { color: var(--blue); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .hit a { grid-template-columns: minmax(0, 1fr); }
+  .hit .tag { grid-row: 1; justify-self: start; }
+  .hit b { font-size: 18px; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Поиск: УрФУ">
+<meta property="og:description" content="Поиск по сайту УрФУ: разделы, документы, сервисы и 378 программ. Можно спросить обычными словами, ответит ИИ-помощник.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" data-road="none" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Поиск</li></ol></nav>
+      <div class="sh" style="margin-top:28px">
+        <div>
+          <h1 class="t-h1" id="h1">Поиск</h1>
+          <p class="lead">Разделы, документы, сервисы и программы. Можно написать вопрос обычными словами.</p>
+        </div>
+        <form class="find3" role="search" id="form">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="sr" for="q">Что вы ищете</label>
+          <input class="input" id="q" type="search" placeholder="Общежитие, расписание" autocomplete="off">
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px" aria-label="Результаты поиска">
+    <div class="wrap">
+      <div class="res" id="res"></div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="data/programs.js"></script>
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+<script>
+const $ = (s) => document.querySelector(s);
+const SECTIONS = ['Программы', 'Поступление', 'Студенту', 'Наука', 'Университет', 'Помощь'];
+const POPULAR = ['стоимость обучения', 'расписание', 'общежитие', 'стипендия', 'календарь приёма', 'контакты'];
+const params = new URLSearchParams(location.search);
+let q = params.get('q') || '', sec = params.get('s') || '';
+
+/* Программы ищем в каталоге: по названию и направлению, все слова запроса */
+function searchPrograms(raw) {
+  const stem = (w) => (w.length > 4 ? w.replace(/[аяоеиыуюьй]{1,2}$/, '') : w);
+  const all = normText(raw).split(/[\s,.;:!?«»"]+/).filter(Boolean);
+  const ws = (all.filter((w) => !STOP.has(w) && w.length > 1).length ? all.filter((w) => !STOP.has(w) && w.length > 1) : all).map(stem);
+  if (!ws.length) return [];
+  return PROGRAMS.filter((p) => ws.every((w) => normText(`${p.name} ${p.dirName}`).includes(w)))
+    .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+}
+
+const hit = (title, meta, href, tag) =>
+  `<li class="hit"><a href="${href}"><b>${escHtml(title)}</b>${tag ? `<span class="tag tag--grey">${tag}</span>` : ''}${meta && meta !== tag ? `<span class="m">${escHtml(meta)}</span>` : ''}</a></li>`;
+
+function render() {
+  const raw = q.trim();
+  const root = $('#res');
+  history.replaceState(null, '', raw ? `?q=${encodeURIComponent(raw)}${sec ? '&s=' + encodeURIComponent(sec) : ''}` : location.pathname);
+  document.title = raw ? `«${raw}»: поиск УрФУ` : 'Поиск: УрФУ';
+
+  if (!raw) {
+    root.innerHTML = `<div class="empty"><h2 class="t-h3">Часто ищут</h2>
+      <ul class="levels" style="margin-top:16px">${POPULAR.map((w) => `<li><a class="chip" href="?q=${encodeURIComponent(w)}">${w}</a></li>`).join('')}</ul>
+      <p class="help-row">Не знаете, как назвать? <a href="pomoshnik.html">Спросите ИИ-помощника</a> обычными словами.</p></div>`;
+    return;
+  }
+
+  const found = searchIndex(raw).map((h) => ({ ...h, tag: h.s }));
+  const progs = searchPrograms(raw);
+  const counts = {};
+  found.forEach((h) => { counts[h.s] = (counts[h.s] || 0) + 1; });
+  if (progs.length) counts['Программы'] = (counts['Программы'] || 0) + progs.length;
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  const asky = raw.includes('?') || raw.split(/\s+/).length >= 3 || !total;
+
+  const botLine = asky ? `<a class="panel-ev bot-line" href="pomoshnik.html?q=${encodeURIComponent(raw)}"><span class="panel-ev__d">ИИ-помощник</span><span class="panel-ev__t">Ответить на «${escHtml(raw)}»</span><span class="panel-ev__g">Ответ со ссылкой на источник</span></a>` : '';
+
+  if (!total) {
+    root.innerHTML = botLine + `<div class="empty"><h2 class="t-h3">По запросу «${escHtml(raw)}» ничего не нашлось</h2>
+      <p>Проверьте написание или попробуйте короче: одно главное слово вместо фразы.</p>
+      <ul class="levels">${POPULAR.map((w) => `<li><a class="chip" href="?q=${encodeURIComponent(w)}">${w}</a></li>`).join('')}</ul>
+      <p class="help-row">Нужен человек: <a href="tel:88001005044">8 800 100-50-44</a>, контакт-центр, звонок по России бесплатный. Или <a href="pomoshch.html#vopros">напишите через форму</a>.</p></div>`;
+    return;
+  }
+
+  const chipsHtml = ['', ...SECTIONS.filter((s) => counts[s])].map((s) =>
+    `<button class="chip" type="button" data-s="${s}" aria-pressed="${sec === s}">${s || 'Всё'} <span class="sr">, найдено</span>&nbsp;${s ? counts[s] : total}</button>`).join('');
+
+  const showIdx = found.filter((h) => !sec || h.s === sec);
+  const showProg = !sec || sec === 'Программы';
+  const progHtml = showProg && progs.length
+    ? `<p class="grp-h">Программы</p><ul>${progs.slice(0, 8).map((p) => hit(p.name, `${p.levelLabel}, ${INST[p.inst]?.[0] || ''}. ${p.dirName}`, `programma.html?id=${p.id}`, '')).join('')}</ul>`
+      + (progs.length > 8 ? `<a class="more" href="katalog.html?q=${encodeURIComponent(raw)}">Все ${progs.length} ${plural(progs.length, ['программа', 'программы', 'программ'])} в каталоге</a>` : '')
+    : '';
+  const idxHtml = showIdx.length ? `<p class="grp-h">Разделы и сервисы</p><ul>${showIdx.map((h) => hit(h.t, h.m, h.h, h.tag)).join('')}</ul>` : '';
+
+  root.innerHTML = botLine + `<div class="res__meta"><p class="res__count" role="status">Найдено: ${sec ? (counts[sec] || 0) : total}</p></div>
+    <div class="levels res__filter" role="group" aria-label="Раздел">${chipsHtml}</div>` + idxHtml + progHtml
+    + `<p class="help-row">Не нашли? <a href="pomoshnik.html?q=${encodeURIComponent(raw)}">Спросите ИИ-помощника</a> или позвоните: <a href="tel:88001005044">8 800 100-50-44</a>.</p>`;
+}
+
+$('#q').value = q;
+$('#q').addEventListener('input', (e) => { q = e.target.value; sec = ''; render(); });
+$('#form').addEventListener('submit', (e) => e.preventDefault());
+$('#res').addEventListener('click', (e) => { const b = e.target.closest('[data-s]'); if (b) { sec = b.dataset.s; render(); } });
+render();
+</script>
+</body>
+</html>

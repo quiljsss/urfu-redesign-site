@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Документы и сведения: УрФУ</title>
+<meta name="description" content="Сведения об образовательной организации, документы, финансы, закупки и обращения граждан: все обязательные разделы с понятными названиями и поиском.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Документы и сведения: УрФУ">
+<meta property="og:description" content="Сведения об образовательной организации, документы, финансы, закупки и обращения граждан: все обязательные разделы с понятными названиями и поиском.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Университет">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li><a href="universitet.html">Университет</a></li><li aria-current="page">Документы и сведения</li></ol></nav>
+      <div class="sh" style="margin-top:28px">
+        <div>
+          <h1 class="t-h1" id="h1">Документы и сведения</h1>
+          <p class="lead">Все разделы, которые вуз обязан публиковать, на месте. Названия по закону сохранены, рядом стоят понятные заголовки.</p>
+        </div>
+        <div class="find3" role="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="sr" for="q">Найти документ или раздел</label>
+          <input class="input" id="q" type="search" placeholder="Устав, стипендии" autocomplete="off">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px" aria-labelledby="hot-h">
+    <div class="wrap">
+      <h2 class="t-h3" id="hot-h" style="margin-bottom:20px">Чаще всего</h2>
+      <div class="hot">
+        <a class="hot__main" href="#"><b>Основные сведения</b><span>Полное название, дата создания, учредитель, адреса</span></a>
+        <a href="#"><b>Платное обучение</b><span>Платные образовательные услуги: условия и оплата</span></a>
+        <a href="#"><b>Стипендии и меры поддержки</b><span>Кто и на что может рассчитывать</span></a>
+        <a href="#"><b>Свободные места</b><span>Вакантные места для приёма и перевода</span></a>
+        <a href="#"><b>Структура и органы управления</b><span>Кто за что отвечает</span></a>
+        <a href="#"><b>Закупки</b><span>План, протоколы, извещения</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="all-h">
+    <div class="wrap">
+      <h2 class="t-h2" id="all-h" style="margin-bottom:40px">Все разделы</h2>
+      <div class="cats">
+        <nav class="catnav" aria-label="Группы разделов" data-nav></nav>
+        <div data-groups></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="js/site.js"></script>
+<script>
+/* Разделы «Сведений об образовательной организации» (sveden) на urfu.ru: официальные названия оставлены как пояснение.
+   Группы по вопросам читателя, а не по порядку из приказа. */
+const GROUPS = [
+  ['Об университете', [
+    ['Основные сведения', ''],
+    ['Кто управляет университетом', 'Структура и органы управления образовательной организацией'],
+    ['Руководство', ''],
+    ['Преподаватели', 'Педагогический состав'],
+    ['Устав, лицензии, правила', 'Документы'],
+    ['Реквизиты', ''],
+  ]],
+  ['Учёба', [
+    ['Стандарты и требования', 'Образовательные стандарты и требования'],
+    ['Образовательные программы', 'Образование'],
+    ['Свободные места', 'Вакантные места для приёма (перевода)'],
+    ['Международное сотрудничество', ''],
+  ]],
+  ['Деньги', [
+    ['Платное обучение', 'Платные образовательные услуги'],
+    ['Стипендии и поддержка', 'Стипендии и меры поддержки обучающихся'],
+    ['На что тратятся деньги', 'Финансово-хозяйственная деятельность'],
+  ]],
+  ['Условия учёбы', [
+    ['Корпуса и оснащение', 'Материально-техническое обеспечение и оснащённость образовательного процесса'],
+    ['Доступная среда', 'Условия для людей с ограниченными возможностями здоровья'],
+    ['Питание', 'Организация питания в образовательной организации'],
+  ]],
+  ['Открытость', [
+    ['Противодействие коррупции', ''],
+    ['Закупки', 'Закупки для нужд УрФУ'],
+    ['Обращения граждан', ''],
+    ['Независимая оценка качества образования', ''],
+    ['Политика в области качества', ''],
+    ['Программа развития', ''],
+  ]],
+];
+initGroups(GROUPS, 'Ничего не нашлось. Попробуйте другое слово или напишите на contact@urfu.ru.');
+</script>
+</body>
+</html>

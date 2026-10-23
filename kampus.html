@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кампус и общежития: УрФУ</title>
+<meta name="description" content="Где аудитория: корпус и адрес по коду аудитории. Учебные корпуса и общежития УрФУ с адресами, порядок поселения 2026 года.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.where { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; align-items: start; }
+.where__ex { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+.where__ex span { font-size: 15px; color: var(--ink-2); margin-right: 4px; }
+.ans { margin-top: 32px; min-height: 160px; }
+.ans__code { font: 500 clamp(40px, 4.4vw, 64px)/1 var(--display); letter-spacing: -0.03em; color: var(--blue); }
+.ans__name { margin-top: 16px; font-size: 22px; font-weight: 600; }
+.ans__addr { margin-top: 6px; font-size: 18px; color: var(--ink-2); }
+.ans a { display: inline-block; margin-top: 16px; font-weight: 600; color: var(--blue); text-underline-offset: 4px; }
+.ans__no { font-size: 18px; color: var(--ink-2); max-width: 44ch; }
+
+.blds li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding: 16px 0; border-top: 1px solid var(--line); }
+.blds li:last-child { border-bottom: 1px solid var(--line); }
+.blds i { width: 12px; height: 12px; margin-top: 6px; border-radius: 50%; box-shadow: inset 0 0 0 3px var(--blue); align-self: start; }
+.blds b { font-weight: 600; font-size: 18px; }
+.blds b small { font-size: 15px; font-weight: 400; color: var(--ink-2); margin-left: 6px; }
+.blds .codes { font-size: 15px; color: var(--ink-2); }
+.blds .adr { grid-column: 2; font-size: 15px; color: var(--ink-2); }
+.blds a { grid-row: 1 / span 2; grid-column: 3; font-size: 15px; font-weight: 600; color: var(--blue); text-underline-offset: 4px; white-space: nowrap; }
+.blds .is-here i { width: 20px; height: 20px; margin: 2px 0 0 -4px; background: var(--sun); box-shadow: none; }
+.blds .is-here b::after { content: "здесь"; margin-left: 10px; font-size: 14px; color: var(--ink-2); }
+.blds-h { margin: 40px 0 8px; font-size: 15px; font-weight: 600; color: var(--ink-2); }
+.blds-h:first-child { margin-top: 0; }
+
+.stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 48px; margin-top: 32px; }
+.stages li { padding: 20px 0; border-top: 2px solid var(--line); }
+.stages li.is-now { border-color: var(--blue); }
+.stages b { display: block; font: 500 24px/1.2 var(--display); letter-spacing: -0.02em; }
+.stages span { display: block; margin-top: 8px; color: var(--ink-2); }
+.stages em { font-style: normal; font-weight: 600; color: var(--blue); }
+
+.dorm .tbl td:nth-child(3) { white-space: nowrap; }
+.coms { columns: 3; column-gap: 48px; margin-top: 24px; }
+.coms li { break-inside: avoid; padding: 10px 0; border-top: 1px solid var(--line); }
+.coms a { font-weight: 600; }
+
+@media (max-width: 1100px) {
+  .where { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .coms { columns: 2; }
+}
+@media (max-width: 640px) {
+  .blds li { grid-template-columns: 24px minmax(0, 1fr); }
+  .blds li > a { grid-column: 2; grid-row: 3; } /* «На карте» после адреса */
+  .blds a { grid-row: auto; grid-column: 2; margin-top: 6px; }
+  .stages { grid-template-columns: minmax(0, 1fr); }
+  .coms { columns: 1; }
+  .dorm .tbl thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .dorm .tbl, .dorm .tbl tbody, .dorm .tbl tr, .dorm .tbl td { display: block; }
+  .dorm .tbl tr { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .dorm .tbl td { padding: 2px 0; border: 0; }
+}
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Кампус и общежития УрФУ">
+<meta property="og:description" content="Где аудитория: корпус и адрес по коду аудитории. Учебные корпуса и общежития УрФУ с адресами, порядок поселения 2026 года.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Университет">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li><a href="universitet.html">Университет</a></li><li aria-current="page">Кампус и общежития</li></ol></nav>
+      <h1 class="t-h1" id="h1" style="margin-top:28px">Кампус и общежития</h1>
+      <p class="lead">Где найти аудиторию по коду из расписания, где стоят корпуса и общежития и как заселиться.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:16px" id="auditoriya" aria-labelledby="w-h">
+    <div class="wrap where">
+      <div>
+        <h2 class="t-h2" id="w-h">Где аудитория</h2>
+        <p class="lead" style="font-size:18px">Введите код из расписания: буквы — это корпус, цифры — номер аудитории.</p>
+        <form class="find3" role="search" style="margin-top:28px" data-where>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="sr" for="aud">Код аудитории</label>
+          <input class="input" id="aud" type="search" placeholder="Например, Т-207" autocomplete="off" spellcheck="false">
+        </form>
+        <div class="where__ex"><span>Например:</span><button class="chip" type="button" data-ex>ГУК-100</button><button class="chip" type="button" data-ex>Т-207</button><button class="chip" type="button" data-ex>Р-045</button><button class="chip" type="button" data-ex>И-143</button></div>
+        <div class="ans" aria-live="polite" data-ans></div>
+      </div>
+      <div data-blds></div>
+    </div>
+  </section>
+
+  <section class="sec sec--grey" id="obshchezhitiya" aria-labelledby="d-h">
+    <div class="wrap">
+      <h2 class="t-h2" id="d-h">Общежития</h2>
+      <p class="lead">Поселение первокурсников 2026 года проводят жилищные комиссии институтов в два этапа.</p>
+      <ol class="stages" data-stages></ol>
+
+      <h3 class="t-h3" style="margin-top:72px">Как заселиться</h3>
+      <ol class="route" style="margin-top:40px">
+        <li><h3>Ордер и договор</h3><p>Их выдаёт жилищная комиссия вашего института. Где и когда — в её группе, список ниже.</p><a href="#komissii">Комиссии институтов</a></li>
+        <li><h3>Медосмотр</h3><p>МСЧ УрФУ, ул. Комсомольская, 59, или медцентр «Новокольцовский». Обследование стоит 210 рублей.</p><a href="https://urfu.ru/ru/students/social/campus/">Что взять с собой</a></li>
+        <li><h3>Оплата</h3><p>По коду из ордера: в банке, через «Сбербанк Онлайн» или электронные платежи УрФУ.</p><a href="https://urfu.ru/fileadmin/user_upload/urfu.ru/documents/settlement/2026/Prikaz_po_osnovnoi_dejatelnosti_No0086_03_ot_29.01.2026__O_razmere_platy_za_prozhivanie_v_obshchezhiti_v3_.pdf">Размер платы, приказ № 0086/03</a></li>
+        <li><h3>Регистрация и заселение</h3><p>Временная регистрация в паспортном отделе студгородка, затем — к заведующему общежитием с ордером и договором.</p><a href="https://urfu.ru/ru/students/social/campus/">Адреса и часы работы</a></li>
+      </ol>
+      <p class="note" style="margin-top:40px">Иностранные студенты получают документы для поселения в <a href="https://vk.com/adaptationurfu">Центре адаптации иностранных обучающихся</a>.</p>
+
+      <div class="dorm" style="margin-top:72px">
+        <h3 class="t-h3">Адреса общежитий</h3>
+        <p class="muted" style="margin-top:8px">В общежитиях студгородка живут более 6&nbsp;000 студентов.</p>
+        <table class="tbl" style="margin-top:24px"><thead><tr><th scope="col">Общежитие</th><th scope="col">Адрес</th><th scope="col">Телефон</th><th scope="col"><span class="sr">Карта</span></th></tr></thead><tbody data-dorms></tbody></table>
+        <p class="muted" style="margin-top:16px; font-size:15px">Плата за проживание в общежитиях кампуса «Новокольцовский» — <a href="https://urfu.ru/fileadmin/user_upload/urfu.ru/documents/settlement/2026/Prikaz_po_osnovnoi_dejatelnosti_No0095_03_ot_29.01.2026__O_razmere_platy_za_prozhivanie_v_obshchezhiti_v4_.pdf">приказ № 0095/03</a>.</p>
+      </div>
+
+      <h3 class="t-h3" style="margin-top:72px" id="komissii">Жилищные комиссии институтов</h3>
+      <ul class="coms" data-coms></ul>
+    </div>
+  </section>
+
+  <section class="sec" aria-label="Источники">
+    <div class="wrap">
+      <p class="muted" style="font-size:15px; max-width:80ch">Названия и адреса зданий — из перечня зданий УрФУ на urfu.ru (раздел отдела по делам ГО и ЧС), буквы аудиторий — по адресам в контактах подразделений. Общежития — по странице Объединённого студенческого городка, порядок и сроки поселения — по странице «Поселение студентов».</p>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="js/site.js"></script>
+<script>
+/* [буквы аудиторий, здание, институты, адрес] */
+const BLD = [
+  ['Улица Мира и соседние', [
+    [['ГУК', 'И', 'М', 'Б', 'Э'], 'Главный учебный корпус', '', 'ул. Мира, 19'],
+    [['С'], 'Учебный корпус № 4', 'ИСА', 'ул. Мира, 17'],
+    [['Ф', 'ФТ'], 'Учебный корпус № 5', 'ФТИ', 'ул. Мира, 21'],
+    [['Х'], 'Учебный корпус № 3', 'ИНМТ, ХТИ', 'ул. Мира, 28'],
+    [['Р'], 'Учебный корпус № 6', 'ИРИТ-РтФ', 'ул. Мира, 32'],
+    [['Т'], 'Учебный корпус № 8', 'УралЭНИН', 'ул. Софьи Ковалевской, 5'],
+    [[], 'Учебное здание «Башня»', 'ИСА', 'ул. Софьи Ковалевской, 4'],
+    [['АБК', 'НОЦ'], 'Административно-бытовой корпус', '', 'ул. Софьи Ковалевской, 7а'],
+    [['ВО'], 'Учебный корпус № 7', 'Военный учебный центр', 'ул. Комсомольская, 62'],
+    [['СК'], 'Спорткомплекс СКИВС', '', 'ул. Коминтерна, 14'],
+  ]],
+  ['В центре города', [
+    [[], 'Учебный корпус', 'УГИ', 'пр. Ленина, 51'],
+    [[], 'Учебный корпус', 'УГИ', 'ул. Тургенева, 4'],
+    [[], 'Учебный корпус', 'ИнЭУ', 'ул. Гоголя, 25'],
+    [[], 'Учебный корпус № 3', 'ИнЭУ', 'пр. Ленина, 13б'],
+    [[], 'Учебное здание № 2', 'ИЕНиМ', 'ул. Куйбышева, 48а'],
+  ]],
+];
+/* [номер, адрес, телефон заведующей] */
+const DORMS = [
+  ['№ 1', 'ул. Большакова, 79', '+7 (343) 257-33-95'], ['№ 2', 'ул. Большакова, 77', '+7 (343) 257-92-79'],
+  ['№ 3', 'ул. Малышева, 140', '+7 (343) 375-47-10'], ['№ 4', 'ул. Большакова, 71', '+7 (343) 257-25-53'],
+  ['№ 5', 'ул. Малышева, 144', '+7 (343) 375-45-46'], ['№ 6', 'ул. Чапаева, 16а', '+7 (343) 257-01-61'],
+  ['№ 7', 'ул. Станислава Набойченко, 3', '+7 (343) 375-45-42'], ['№ 8', 'ул. Комсомольская, 70/10', '+7 (343) 375-48-67'],
+  ['№ 9', 'ул. Фонвизина, 8', '+7 (343) 375-44-05'], ['№ 10', 'пр. Ленина, 66а', '+7 (343) 375-01-96'],
+  ['№ 11', 'ул. Станислава Набойченко, 5', '+7 (343) 375-44-92'], ['№ 12', 'ул. Фонвизина, 4', '+7 (343) 375-46-60'],
+  ['№ 13', 'ул. Комсомольская, 66а', '+7 (343) 375-47-97'], ['№ 14', 'ул. Станислава Набойченко, 1а', '+7 (343) 375-45-36'],
+  ['№ 15', 'ул. Станислава Набойченко, 11', '+7 (343) 375-47-19'], ['№ 16', 'ул. Малышева, 127а', '+7 (343) 375-47-50'],
+  ['Новокольцовский, № 1', 'ул. 100-летия Уральского университета, 6', ''], ['Новокольцовский, № 2', 'ул. 100-летия Уральского университета, 6/2', ''],
+];
+const COMS = [['ИЕНиМ', 'https://vk.ru/poselenie_ien_urfu'], ['ИНМТ', 'https://vk.ru/poselinmt'], ['УГИ', 'https://vk.ru/ugi_hostel'], ['УралЭНИН', 'https://vk.ru/uralei'],
+  ['ФТИ', 'https://vk.ru/profburo_fti'], ['ИРИТ-РтФ', 'https://vk.ru/housertf'], ['ИФКСиМП', 'https://vk.ru/poselenifksimp'], ['ИнЭУ', 'https://vk.ru/poselenie_ineu'],
+  ['УПИШ', 'https://vk.ru/upish_urfu'], ['ХТИ', 'https://vk.ru/hti_urfu'], ['ИСА', 'https://vk.ru/isa_urfu'], ['ИнФО', 'https://vk.ru/info_urfu']];
+/* этапы поселения 2026: [название, начало, конец (месяц с 0), что] */
+const STAGES = [['Первый этап', [9, 12], [9, 23], 'Места, не занятые студентами 2–6 курсов'], ['Второй этап', [9, 26], [10, 6], 'Места, оставшиеся после первого этапа']];
+
+const MONTHS_GEN = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const $ = (s, r = document) => r.querySelector(s);
+const map = (a) => 'https://yandex.ru/maps/54/yekaterinburg/?text=' + encodeURIComponent('Екатеринбург, ' + a);
+const ALL = BLD.flatMap(([, list]) => list);
+const CODES = ALL.flatMap((b) => b[0].map((c) => [c, b])).sort((a, b) => b[0].length - a[0].length);
+
+$('[data-blds]').innerHTML = BLD.map(([g, list]) => `<p class="blds-h">${g}</p><ul class="blds">${list.map((b, i) =>
+  `<li data-b="${ALL.indexOf(b)}"><i aria-hidden="true"></i><b>${b[1]}${b[2] ? `<small>${b[2]}</small>` : ''}</b><a href="${map(b[3])}">На карте</a><span class="adr">${b[3]}${b[0].length ? `<span class="codes">. Аудитории: ${b[0].join(', ')}</span>` : ''}</span></li>`).join('')}</ul>`).join('');
+
+/* латиница, похожая на кириллицу, и пробелы: «t 207», «Т207», «гук-100» */
+const LAT = { A: 'А', B: 'В', C: 'С', E: 'Е', H: 'Н', K: 'К', M: 'М', O: 'О', P: 'Р', T: 'Т', X: 'Х', Y: 'У' };
+function find(raw) {
+  const q = raw.trim().toUpperCase().replace(/[ABCEHKMOPTXY]/g, (c) => LAT[c]).replace(/Ё/g, 'Е');
+  const m = q.match(/^([А-Я]{1,4})\s*[-–—]?\s*(\d{1,4}[А-Я]?)?$/);
+  if (!m) return null;
+  const hit = CODES.find(([c]) => c === m[1]);
+  return { code: m[1] + (m[2] ? '-' + m[2] : ''), letters: m[1], b: hit && hit[1] };
+}
+function show(raw, push) {
+  const box = $('[data-ans]'), r = raw.trim() ? find(raw) : null;
+  document.querySelectorAll('.blds li').forEach((li) => li.classList.toggle('is-here', !!(r && r.b) && +li.dataset.b === ALL.indexOf(r.b)));
+  if (!raw.trim()) { box.innerHTML = ''; }
+  else if (r && r.b) box.innerHTML = `<p class="ans__code">${r.code}</p><p class="ans__name">${r.b[1]}${r.b[2] ? `, ${r.b[2]}` : ''}</p><p class="ans__addr">${r.b[3]}, Екатеринбург</p><a href="${map(r.b[3])}">Открыть на карте</a>`;
+  else box.innerHTML = `<p class="ans__no">${r ? `Корпус с буквами «${r.letters}» в нашем списке не нашёлся.` : 'Код аудитории выглядит так: буквы корпуса и номер, например Т-207.'} Посмотрите список корпусов или позвоните в контакт-центр: <a href="tel:88001005044">8 800 100-50-44</a>.</p>`;
+  if (push) history.replaceState(null, '', raw.trim() ? '?q=' + encodeURIComponent(raw.trim()) + '#auditoriya' : location.pathname);
+}
+const inp = $('#aud');
+inp.addEventListener('input', () => show(inp.value, true));
+$('[data-where]').addEventListener('submit', (e) => { e.preventDefault(); show(inp.value, true); });
+document.querySelectorAll('[data-ex]').forEach((b) => b.addEventListener('click', () => { inp.value = b.textContent; show(inp.value, true); }));
+const q0 = new URLSearchParams(location.search).get('q');
+if (q0) { inp.value = q0; show(q0); }
+
+/* этап поселения считается от сегодняшней даты (?date= подменяет день) */
+const y = TODAY.getFullYear() === 2026 ? 2026 : null;
+$('[data-stages]').innerHTML = STAGES.map(([t, a, b, w]) => {
+  const from = new Date(2026, a[0], a[1]), to = new Date(2026, b[0], b[1], 23, 59);
+  const now = y && TODAY >= from && TODAY <= to, past = TODAY > to;
+  return `<li${now ? ' class="is-now"' : ''}><b>${a[0] === b[0] ? `${a[1]}–${b[1]} ${MONTHS_GEN[b[0]]}` : `${a[1]} ${MONTHS_GEN[a[0]]} – ${b[1]} ${MONTHS_GEN[b[0]]}`}</b><span>${t}. ${w}${now ? '. <em>Идёт сейчас</em>' : past ? '. Завершён' : ''}</span></li>`;
+}).join('');
+
+$('[data-dorms]').innerHTML = DORMS.map(([n, a, t]) => `<tr><td data-l="Общежитие">${n}</td><td data-l="Адрес">${a}</td><td data-l="Телефон">${t ? `<a href="tel:${t.replace(/[^\d+]/g, '')}">${t}</a>` : ''}</td><td><a href="${map(a)}">На карте</a></td></tr>`).join('');
+$('[data-coms]').innerHTML = COMS.map(([n, h]) => `<li><a href="${h}">${n}</a></li>`).join('');
+</script>
+</body>
+</html>

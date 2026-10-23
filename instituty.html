@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Институты УрФУ</title>
+<meta name="description" content="Институты и филиалы УрФУ: что изучают в каждом, сколько программ и как связаться с приёмной комиссией.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 0 0 36px; }
+.bar .label { margin: 0; }
+.bar .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+/* Институты строками: сокращение, название и направления, число программ. Знак общий, поэтому без цветных значков */
+.icards { border-top: 2px solid var(--ink); }
+.ic { display: grid; grid-template-columns: 200px minmax(0, 1fr) 160px; gap: 4px 32px; align-items: baseline; padding: 24px 0 26px; border-bottom: 1px solid var(--line); text-decoration: none; }
+.ic:hover .ic__t, .ic:hover .ic__ab { color: var(--blue); }
+.ic__ab { grid-row: span 3; font-family: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.02em; }
+.ic__t { font-size: 20px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; }
+.ic__dirs { grid-column: 2; color: var(--ink-2); font-size: 15px; }
+.ic__n { grid-column: 3; grid-row: 1 / span 3; font-size: 18px; font-weight: 600; text-align: right; }
+.ic__lv { grid-column: 2; font-size: 14px; color: var(--ink-2); }
+.fil { margin-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; }
+@media (max-width: 900px) { .fil { grid-template-columns: minmax(0, 1fr); } }
+.fil li { padding: 16px 0; border-top: 1px solid var(--line); font-size: 18px; font-weight: 500; }
+@media (max-width: 900px) { .ic { grid-template-columns: minmax(0, 1fr); } .ic__ab, .ic__dirs, .ic__lv, .ic__n { grid-column: 1; grid-row: auto; text-align: left; } .ic__n { margin-top: 8px; } }
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Институты УрФУ">
+<meta property="og:description" content="Институты и филиалы УрФУ: что изучают в каждом, сколько программ и как связаться с приёмной комиссией.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Программы">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li aria-current="page">Институты</li></ol></nav>
+      <h1 class="t-h1" id="h1">Институты</h1>
+      <p class="lead" data-lead></p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:8px" aria-label="Список институтов">
+    <div class="wrap">
+      <div class="bar" role="group" aria-labelledby="bl"><span class="label" id="bl">Показать институты, где есть</span><div class="chips" data-chips></div></div>
+      <div class="icards" data-cards></div>
+    </div>
+  </section>
+
+  <section class="sec sec--grey" id="filialy" aria-labelledby="fil-h">
+    <div class="wrap">
+      <div class="sec__head"><div><h2 class="t-h2" id="fil-h">Филиалы и ИТОО</h2><p>Подразделения за пределами основного кампуса в Екатеринбурге.</p></div></div>
+      <ul class="fil">
+        <li>Нижнетагильский технологический институт <span style="display:block;font-size:15px;font-weight:400;color:var(--ink-2)">Его программы в списке институтов выше</span></li>
+        <li>Политехнический институт в г. Каменске-Уральском</li>
+        <li>Филиал в г. Верхняя Салда</li>
+        <li>Филиал в г. Краснотурьинске</li>
+        <li>Институт технологий открытого образования</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="data/programs.js"></script>
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+<script>
+const $ = (s) => document.querySelector(s);
+let lv = '';
+const ids = Object.keys(INST);
+const cnt = (id, l) => PROGRAMS.filter((p) => p.inst === id && (!l || p.level === l)).length;
+
+$('[data-lead]').textContent = `${ids.length} институтов с программами набора 2026 года.`;
+$('[data-chips]').innerHTML = [['', 'Любой уровень'], ...LEVEL_ORDER.map((k) => [k, LEVEL_LABEL[k]])]
+  .map(([v, t]) => `<button class="chip" type="button" data-v="${v}" aria-pressed="${v === lv}">${t}</button>`).join('');
+$('[data-chips]').addEventListener('click', (e) => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  lv = b.dataset.v; document.querySelectorAll('[data-chips] .chip').forEach((x) => x.setAttribute('aria-pressed', x === b)); render();
+});
+
+function render() {
+  const rows = ids.filter((id) => cnt(id, lv) > 0).sort((a, b) => INST[a][0].localeCompare(INST[b][0], 'ru'));
+  $('[data-cards]').innerHTML = rows.map((id) => {
+    const [ab, name] = INST[id];
+    const all = [...new Set(PROGRAMS.filter((p) => p.inst === id).map((p) => p.dirName))];
+    const dirs = all.slice(0, 3).join(', ') + (all.length > 3 ? ' и другие' : '');
+    const tags = LEVEL_ORDER.filter((l) => cnt(id, l)).map((l) => `${LEVEL_LABEL[l].toLowerCase()} ${cnt(id, l)}`).join(', ');
+    const n = cnt(id, lv);
+    return `<a class="ic" href="institut.html?id=${id}">
+      <span class="ic__ab">${ab}</span>
+      <h2 class="ic__t">${name}</h2>
+      <p class="ic__dirs">${escHtml(dirs)}</p>
+      ${lv ? '' : `<p class="ic__lv">${tags}</p>`}<p class="ic__n">${n} ${plural(n, ['программа', 'программы', 'программ'])}</p></a>`;
+  }).join('');
+}
+render();
+</script>
+</body>
+</html>

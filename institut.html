@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Институт: УрФУ</title>
+<meta name="description" content="Страница института УрФУ: программы по уровням, направления и контакты приёмной комиссии.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+.ih { max-width: 860px; }
+.ih__ab { display: block; margin-bottom: 14px; font-family: var(--display); font-size: 20px; font-weight: 500; color: var(--ink-2); }
+/* Подпись института: знак общий, меняется только текст в три строки */
+
+.nums { padding: 36px 0; border-block: 1px solid var(--line); }
+.layout { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 80px; align-items: start; }
+.lvl { margin-top: 44px; }
+.lvl:first-of-type { margin-top: 0; }
+.lvl summary { list-style: none; cursor: pointer; }
+.lvl summary::-webkit-details-marker { display: none; }
+.lvl h3 { display: flex; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+.lvl h3::after { content: "+"; margin-left: auto; font-size: 24px; font-weight: 400; line-height: 1; color: var(--blue); }
+.lvl[open] h3::after { content: "−"; }
+.lvl h3 span { color: var(--ink-2); font-size: 16px; font-weight: 500; }
+.lvl a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; padding: 16px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+.lvl a:hover b { color: var(--blue); }
+.lvl b { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+.lvl span.m { color: var(--ink-2); font-size: 15px; grid-column: 1; }
+.lvl span.r { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--ink-2); font-size: 15px; white-space: nowrap; }
+.aside { position: sticky; top: calc(var(--stick) + 24px); transition: top .4s var(--ease-out); display: grid; gap: 16px; }
+.box { padding: 16px 0 0; border-top: 2px solid var(--ink); }
+.box + .box { margin-top: 32px; }
+.box h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.box p { color: var(--ink-2); font-size: 15px; }
+.box a.m { display: block; margin-top: 10px; font-size: 18px; font-weight: 600; word-break: break-all; color: var(--blue); }
+.box .btn { width: 100%; margin-top: 16px; }
+.finder { margin-bottom: 28px; max-width: 480px; }
+@media (max-width: 1100px) { .ih, .layout { grid-template-columns: minmax(0, 1fr); gap: 32px; } .aside { position: static; } }
+@media (max-width: 640px) { .lvl a { grid-template-columns: minmax(0, 1fr); gap: 2px; } .lvl span.r { grid-column: 1; grid-row: auto; font-size: 14px; } }
+</style>
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Путь и точка: редизайн сайта УрФУ">
+<meta property="og:title" content="Институт: УрФУ">
+<meta property="og:description" content="Страница института УрФУ: программы по уровням, направления и контакты приёмной комиссии.">
+<meta property="og:image" content="https://quiljsss.github.io/urfu-redesign-site/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-page="Программы">
+<div data-header></div>
+
+<main id="main" tabindex="-1">
+  <section class="phead" aria-labelledby="h1">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Вы здесь"><ol><li><a href="index.html">Главная</a></li><li><a href="instituty.html">Институты</a></li><li aria-current="page" data-crumb>Институт</li></ol></nav>
+      <div class="ih" style="margin-top:28px">
+        <div>
+          <span class="ih__ab" data-ab></span>
+          <h1 class="t-h1" id="h1" data-name></h1>
+          <p class="lead" data-lead></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nums" aria-label="Коротко об институте"><div class="wrap"><dl class="facts facts--big" data-facts></dl></div></section>
+
+  <section class="sec" aria-labelledby="pr-h">
+    <div class="wrap layout">
+      <div>
+        <h2 class="t-h2" id="pr-h" style="margin-bottom:28px">Программы</h2>
+        <div class="finder"><label class="label" for="q">Найти среди программ института</label><input class="input" id="q" type="search" autocomplete="off" placeholder="Название или направление"></div>
+        <div data-progs></div>
+      </div>
+      <div class="aside">
+        <div class="box">
+          <h3>Приёмная комиссия института</h3>
+          <p data-mailp>Ответит на вопросы о поступлении именно на программы этого института.</p>
+          <a class="m" data-mail href="#"></a>
+        </div>
+        <div class="box">
+          <h3>Сроки и документы</h3>
+          <p>Календарь приёма, правила и перечень документов общие для всех институтов.</p>
+          <a class="btn btn--blue" href="postuplenie.html">Как поступить</a>
+        </div>
+        <a class="btn btn--ghost" data-all href="katalog.html">Все программы в каталоге</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+
+<script src="data/programs.js"></script>
+<script src="js/data.js"></script>
+<script src="js/site.js"></script>
+<script>
+const $ = (s) => document.querySelector(s);
+const id = new URLSearchParams(location.search).get('id');
+const iid = INST[id] ? id : 'i7';
+const [ab, name, mail] = INST[iid];
+const mine = PROGRAMS.filter((p) => p.inst === iid);
+document.title = `${ab}: ${name}: УрФУ`;
+$('[data-crumb]').textContent = ab;
+$('[data-ab]').textContent = ab;
+$('[data-name]').textContent = name.replace(' — ', '\u00a0— ');
+$('[data-all]').href = `katalog.html?inst=${iid}`;
+const dirs = [...new Set(mine.map((p) => p.dirName))];
+$('[data-lead]').textContent = `${mine.length} ${plural(mine.length, ['программа', 'программы', 'программ'])} набора 2026 года: ${dirs.slice(0, 4).join(', ').toLowerCase()}${dirs.length > 4 ? ' и другие направления' : ''}.`;
+const lvls = LEVEL_ORDER.filter((l) => mine.some((p) => p.level === l));
+const en = mine.filter((p) => /англ/i.test(p.lang)).length;
+$('[data-facts]').innerHTML = [[plural(mine.length, ['программа', 'программы', 'программ']), mine.length], [plural(dirs.length, ['направление подготовки', 'направления подготовки', 'направлений подготовки']), dirs.length], [plural(lvls.length, ['уровень образования', 'уровня образования', 'уровней образования']), lvls.length],
+  ...(en ? [[`${plural(en, ['программа', 'программы', 'программ'])} на английском`, en]] : [])].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+if (mail) { $('[data-mail]').textContent = mail; $('[data-mail]').href = 'mailto:' + mail; }
+else { $('[data-mail]').remove(); $('[data-mailp]').innerHTML = 'Почты приёмных комиссий всех институтов собраны на странице <a href="pomoshch.html#instituty">«Помощь и контакты»</a>. Общий телефон: <a href="tel:88001005044">8 800 100-50-44</a>.'; }
+
+function render() {
+  const w = normText($('#q').value).split(/\s+/).filter(Boolean);
+  const hit = mine.filter((p) => { const h = normText(p.name + ' ' + p.dir); return w.every((x) => h.includes(x)); });
+  $('[data-progs]').innerHTML = hit.length ? lvls.map((l) => {
+    const list = hit.filter((p) => p.level === l).sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    if (!list.length) return '';
+    return `<details class="lvl"${l === lvls[0] || list.length <= 6 || w.length ? ' open' : ''}><summary><h3 class="t-h3">${LEVEL_LABEL[l]} <span>${list.length}</span></h3></summary>${list.map((p) =>
+      `<a href="programma.html?id=${p.id}"><b>${escHtml(p.name)}</b><span class="m">${p.code} ${escHtml(p.dirName)}</span><span class="r">${p.formsLabel}${p.term.includes(': ') ? ', ' + p.term.split(': ')[1] : ''}</span></a>`).join('')}</details>`;
+  }).join('') : '<p class="muted">Ничего не нашлось. Попробуйте другое слово.</p>';
+}
+$('#q').addEventListener('input', render);
+render();
+</script>
+</body>
+</html>
